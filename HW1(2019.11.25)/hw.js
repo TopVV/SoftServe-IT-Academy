@@ -1,59 +1,49 @@
-function refereeHelper (matchEvents) {
-    matchEvents.forEach(element => {
-        switch(element[2]) {
-            case "Y":
-                    team${element[0]}[element[1]].receiveYellowCard;
-                    break
+class Player {
+    constructor(name) {
+        this._name = name;
+        this._yellowCards = 0;
+        this._redCards = 0;
+    }
+
+    receiveYellowCard() {
+        this._yellowCards++
+    }
+    receiveRedCard () {
+        this._redCards++
+    }
+    isInGame () {
+        return this._yellowCards < 2 && this._redCards === 0
+    }
+}
+
+class Team {
+    constructor(name, numberOfPlayers) {
+        this._name;
+        this.players = [];
+        for(let i = 0; i < numberOfPlayers; i++) {
+            this.players.push(new Player(i + 1))
         }
-         
+    }
+    hasSufficientPlayers() {
+        return this.players.length > 7
+    }
+}
+
+let teamA = new Team("A", 11);
+let teamB = new Team("B", 11);
+
+function menStillStanding(matchEvents) {
+    let A = teamA;
+    let B = teamB;
+
+    matchEvents.forEach(element => {
+        ele
     });
 }
 
 
-class Team {
-    constructor(teamName) {
-        this.teamName = teamName;
-        this.players = [];
-    }
-    addPlayer(player){
-        this.players.push(player);
-    }
-    hasSufficientPlayers() {
-        return this.players.length>7
-    }
-}
 
-class Player {
-    constructor(name) {
-        this._name = name;
-        this._nYellowCards = 0;
-        this._nRedCards = 0;
-        this._inGame = true;
-    }
-    getPlayersName() {
-        return this._name
-    }
-    receiveYellowCard() {
-        this._nYellowCards++
-    }
-    receiveRedCard() {
-        this._nRedCards++
-    }
-    isInGame() {
-        return this.inGame
-    }
-}
 
-function collectPlayersInTeam(team, numberOfPlayers) {
-    for(let i = 0; i < numberOfPlayers; i++) {
-        team.addPlayer(new Player(i+1))
-    }
-}
-
-let teamA = new Team("A");
-let teamB = new Team("B");
-collectPlayersInTeam(teamA, 11);
-collectPlayersInTeam(teamB, 11);
 
 
 
