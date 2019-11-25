@@ -1,3 +1,5 @@
+"use strict";
+
 class Player {
     constructor(name) {
         this._name = name;
@@ -8,10 +10,10 @@ class Player {
     receiveYellowCard() {
         this._yellowCards++
     }
-    receiveRedCard () {
+    receiveRedCard() {
         this._redCards++
     }
-    isInGame () {
+    isInGame() {
         return this._yellowCards < 2 && this._redCards === 0
     }
 }
@@ -20,31 +22,37 @@ class Team {
     constructor(name, numberOfPlayers) {
         this._name;
         this.players = [];
-        for(let i = 0; i < numberOfPlayers; i++) {
+        for (let i = 0; i < numberOfPlayers; i++) {
             this.players.push(new Player(i + 1))
         }
     }
-    hasSufficientPlayers() {
-        return this.players.length > 7
+    howManyInGame() {
+        return this.players.reduce((counter, currentPlayer) => {
+            if (currentPlayer.isInGame()) {
+                return ++counter
+            }
+            return counter
+        }, 0);
     }
 }
 
-let teamA = new Team("A", 11);
-let teamB = new Team("B", 11);
-
 function menStillStanding(matchEvents) {
-    let A = teamA;
-    let B = teamB;
+
+    let teamA = new Team("A", 11);
+    let teamB = new Team("B", 11);
 
     matchEvents.forEach(element => {
-        ele
-    });
+
+        if (teamA.howManyInGame() && teamB.howManyInGame()) {
+            let playerNumber = Number(element.match(/\d+/g)[0]) - 1;
+            let cardColor = element.match(/[A-Z]$/)[0];
+            let currentPlayer = (element[0] === "A") ? teamA.players[playerNumber] : teamB.players[playerNumber];
+
+            if (currentPlayer.isInGame()) {
+                cardColor === "Y" ? currentPlayer.receiveYellowCard() : currentPlayer.receiveRedCard()
+            }
+        }
+    })
+
+    return [teamA.howManyInGame(), teamB.howManyInGame()]
 }
-
-
-
-
-
-
-
-// ["A4Y", "A4Y"]
