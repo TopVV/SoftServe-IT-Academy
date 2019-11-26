@@ -34,6 +34,9 @@ class Team {
             return counter
         }, 0);
     }
+    hasSufficientPlayers() {
+        return this.howManyInGame() >= 7
+    }
 }
 
 function menStillStanding(matchEvents) {
@@ -43,7 +46,7 @@ function menStillStanding(matchEvents) {
 
     matchEvents.forEach(element => {
 
-        if (teamA.howManyInGame() && teamB.howManyInGame()) {
+        if (teamA.hasSufficientPlayers() && teamB.hasSufficientPlayers()) {
             let playerNumber = Number(element.match(/\d+/g)[0]) - 1;
             let cardColor = element.match(/[A-Z]$/)[0];
             let currentPlayer = (element[0] === "A") ? teamA.players[playerNumber] : teamB.players[playerNumber];
