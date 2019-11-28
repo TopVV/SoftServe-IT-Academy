@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Jura&display=swap');
+
 body {
     background: #c31432;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
@@ -5,9 +7,13 @@ body {
 }
 
 .homeworks {
+    font-family: 'Jura', sans-serif;
     color: #fff;
+    margin-left: 50px;
+    margin-top: 60px;
 }
 
 .homeworks a {
     color: inherit;
 }
+
