@@ -94,7 +94,7 @@ function myJoin(arr, separator) {
 //////////////////////////////////////////////////////////// 
 
 
-function mySlice (arr, begin = 0, end = arr.length) {
+function mySlice(arr, begin = 0, end = arr.length) {
 	if (begin > end) {
 		return []
 	}
@@ -105,4 +105,19 @@ function mySlice (arr, begin = 0, end = arr.length) {
 		}
 	})
 	return slicedArr
+}
+
+
+////////////////////////////////////////////////////////////
+
+
+function mySplice(arr, start, deleteCount, ...values) {
+	let slicedArrElements = arr.slice(start, start + deleteCount);
+	let oldArrayFirstPart = arr.slice(0, start);
+	let oldArraySecondPart = arr.slice(start + deleteCount, arr.length);
+	
+	arr.length = 0;
+	arr = oldArrayFirstPart.concat(values, oldArraySecondPart);
+	
+	return slicedArrElements
 }
