@@ -115,9 +115,9 @@ function mySplice(arr, start, deleteCount, ...values) {
 	let slicedArrElements = arr.slice(start, start + deleteCount);
 	let oldArrayFirstPart = arr.slice(0, start);
 	let oldArraySecondPart = arr.slice(start + deleteCount, arr.length);
-	
+
 	arr.length = 0;
 	arr = oldArrayFirstPart.concat(values, oldArraySecondPart);
-	
+
 	return slicedArrElements
 }

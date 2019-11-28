@@ -3,9 +3,11 @@
 body {
     font-family: 'Jura', sans-serif;
 }
+
 .tests {
     color: #fff;
 }
+
 #mocha {
     font-family: 'Jura', sans-serif;
     font-size: 30px;
@@ -13,12 +15,14 @@ body {
 
 .back-link {
     margin-top: 50px;
-margin-left: 70px;
+    margin-left: 70px;
 }
-.back-link a{
+
+.back-link a {
     color: #fff;
     text-decoration: none;
 }
+
 .back-link:hover {
     text-decoration: underline;
 }

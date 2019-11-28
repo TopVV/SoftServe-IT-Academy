@@ -44,9 +44,9 @@ describe('Sample tests', function () {
 		Test.deepEqual(myJoin([1, 2, 3], " "), "1 2 3");
 	});
 	it('mySlice', function () {
-		Test.deepEqual(mySlice(['Banana', 'Orange', 'Lemon', 'Apple', 'Mango'], 1, 3), ['Orange','Lemon']);
+		Test.deepEqual(mySlice(['Banana', 'Orange', 'Lemon', 'Apple', 'Mango'], 1, 3), ['Orange', 'Lemon']);
 		Test.deepEqual(mySlice(['ant', 'bison', 'camel', 'duck', 'elephant'], 2), ["camel", "duck", "elephant"]);
-		Test.deepEqual(mySlice(['ant', 'bison', 'camel', 'duck', 'elephant'], 2 , 4), ["camel", "duck"]);
+		Test.deepEqual(mySlice(['ant', 'bison', 'camel', 'duck', 'elephant'], 2, 4), ["camel", "duck"]);
 	});
 	it('mySplice', function () {
 		Test.deepEqual(mySplice(['Jan', 'March', 'April', 'June'], 1, 0, 'Feb'), []);
