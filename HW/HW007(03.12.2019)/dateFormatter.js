@@ -45,7 +45,6 @@ const representations = {
 
 
 
-console.log(new Date().getFullYear().toString().substring(2));
 
 /* 'HH:mm' :'00:00',
 'dd/MM/yyyy' : '01/01/1970',
