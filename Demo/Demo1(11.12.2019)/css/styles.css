@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather&display=swap');
+@import url('./inputs-buttons-anim.css');
+
+body {
+    background: #C33764;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #1D2671, #C33764);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #1D2671, #C33764);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    color: #fff;
+
+}
+
+.main-ui {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+}
+
+.task__main-text,
+.task__tests-link {
+    font-size: 1.875rem;
+}
+
+.tasks-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 45%;
+    margin: 3%;
+}
+
+.task {
+    margin: 15px;
+}
+
+.task-text {
+    cursor: pointer;
+    opacity: 0.7;
+    display: inline-block;
+    transition: 0.5s;
+}
+
+.task-form {
+    margin: 5px 0 0;
+    display: none;
+    position: relative;
+}
+
+input {
+    border-radius: 5%;
+    border: none;
+}
+
+.task-form__input {
+    width: 80px;
+    height: 40px;
+    border-radius: 7%;
+    margin: 5px 10px;
+    padding-left: 10px;
+}
+
+.task-form__submit {
+    background-color: #0E0D0A;
+    color: #C0BCBB;
+    border: 2px solid #D4AF37;
+    width: 85px;
+    height: 45px;
+    border-radius: 10%;
+}
+
+.task:nth-child(3) .task form,
+.task:nth-child(4) .task form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 250px;
+}
+
+.task:nth-child(3) .task-form,
+.task:nth-child(4) .task-form {
+    width: 300px;
+}
+
+.task:nth-child(3) .task-form__submit,
+.task:nth-child(4) .task-form__submit {
+    position: absolute;
+}
+
+.task:nth-child(3) .task-form__submit {
+    top: 30px;
+    right: -30px;
+}
+
+.task:nth-child(4) .task-form__submit {
+    top: 58px;
+    right: -80px;
+}
+
+.task:nth-child(4) .task-form__input {
+    width: 100px;
+}
+
+.task:nth-child(5) .task-form__input {
+    width: 100px;
+}
+
+.task__tests-link a,
+.task__tests-link a:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+.input-window,
+.output-window {
+    background-color: #282828;
+    border-radius: 20px;
+    padding: 15px;
+    text-align: justify;
+    overflow: auto;
+    color: #33FF33;
+    white-space: pre-wrap;
+}
+
+.input-text {
+    text-align: center;
+}
+
+.input-window {
+    height: 70px;
+    margin-top: 5px;
+}
+
+.output-block {
+    width: 35%;
+    margin: 3%;
+    font-size: 1.25rem;
+}
+
+.output-text {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.output-window {
+    padding: 15px;
+    height: 450px;
+    margin-top: 15px;
+}
+
+.active {
+    display: block;
+}

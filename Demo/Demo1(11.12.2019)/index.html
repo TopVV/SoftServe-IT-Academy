@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS Elementary Tasks</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+
+    <div class="main-ui">
+        <div class="tasks-block">
+            <h1 class="task__main-text">Tasks List:</h1>
+            <div class="task">
+                <div class="task-text">Task 1: Chess Board</div>
+                <div class="task-form">
+                    <form id="task1Form" action="#">
+                        <input class="task-form__input" type="text" placeholder="Height:" name="boardHeight"
+                            autocomplete="off">
+                        <input class="task-form__input" type="text" placeholder="Width:" name="boardWidth"
+                            autocomplete="off">
+                        <input class="task-form__input" type="text" placeholder="Symbol:" name="boardSymbol"
+                            autocomplete="off">
+                        <button class="task-form__submit" type="submit">Apply</button>
+                    </form>
+                </div>
+            </div>
+            <div class="task">
+                <div class="task-text">Task 2: Envelopes Analysis</div>
+                <div class="task-form">
+                    <form id="task2Form" action="#">
+                        <input class="task-form__input" type="text" placeholder="1: a" name="a" autocomplete="off">
+                        <input class="task-form__input" type="text" placeholder="1: b" name="b" autocomplete="off">
+                        <input class="task-form__input" type="text" placeholder="2: c" name="c" autocomplete="off">
+                        <input class="task-form__input" type="text" placeholder="2: d" name="d" autocomplete="off">
+                        <button class="task-form__submit" type="submit">Apply</button>
+                    </form>
+                </div>
+            </div>
+            <div class="task">
+                <div class="task-text">Task 3: Triangles sorting</div>
+                <div class="task-form">
+                    <form id="task3Form" action="#">
+                        <input class="task-form__input" type="text" name="v1" placeholder="1st Vertices:"
+                            autocomplete="off">
+                        <input class="task-form__input" type="text" name="s1" placeholder="1st Sides: .., .. , .."
+                            autocomplete="off">
+                        <input class="task-form__input" type="text" name="v2" placeholder="2nd Vertices:"
+                            autocomplete="off">
+                        <input class="task-form__input" type="text" name="s2" placeholder="2nd Sides: .., .. , .."
+                            autocomplete="off">
+                        <input class="task-form__input" type="text" name="v3" placeholder="3rd Vertices:"
+                            autocomplete="off">
+                        <input class="task-form__input" type="text" name="s3" placeholder="3rd Sides: .., .. , .."
+                            autocomplete="off">
+                        <button class="task-form__submit" type="submit">Apply</button>
+                    </form>
+                </div>
+            </div>
+            <div class="task">
+                <div class="task-text">Task 4: Palindrome</div>
+                <div class="task-form">
+                    <form id="task4Form" action="#">
+                        <input class="task-form__input" type="text" name="inpNumb" placeholder="Number:"
+                            autocomplete="off">
+                        <button class="task-form__submit" type="submit">Apply</button>
+                    </form>
+                </div>
+            </div>
+            <div class="task">
+                <div class="task-text">Task 5: Lucky Tickets</div>
+                <div class="task-form">
+                    <form id="task5Form" action="#">
+                        <input class="task-form__input" type="text" name="min" placeholder="Min:" autocomplete="off">
+                        <input class="task-form__input" type="text" name="max" placeholder="Max:" autocomplete="off">
+                        <button class="task-form__submit" type="submit">Apply</button>
+                    </form>
+                </div>
+            </div>
+            <div class="task">
+                <div class="task-text">Task 6: Numeric sequence</div>
+                <div class="task-form">
+                    <form id="task6Form" action="#">
+                        <input class="task-form__input" type="text" name="leng" placeholder="Length:"
+                            autocomplete="off">
+                        <input class="task-form__input" type="text" name="minSqr" placeholder="Min square:"
+                            autocomplete="off">
+                        <button class="task-form__submit" type="submit">Apply</button>
+                    </form>
+                </div>
+            </div>
+            <div class="task">
+                <div class="task-text">Task 7: Fibonacci numbers for the range</div>
+                <div class="task-form">
+                    <form id="task7Form" action="#">
+                        <input class="task-form__input" type="text" name="inpMin" placeholder="Min:" autocomplete="off">
+                        <input class="task-form__input" type="text" name="inpMax" placeholder="Max:" autocomplete="off">
+                        <input class="task-form__input" type="text" name="inpL" placeholder=".. or length:"
+                            autocomplete="off">
+                        <button class="task-form__submit" type="submit">Apply</button>
+                    </form>
+                </div>
+            </div>
+            <h2 class="task__tests-link"><a href="./tests/test.html">Page with tests</a></h2>
+        </div>
+        <div class="output-block">
+            <div class="input">
+                <div class="input-text">Input:</div>
+                <div class="input-window"></div>
+            </div>
+            <div class="output">
+                <div class="output-text">Output window:</div>
+                <div id="output" class="output-window"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./additional-scripts/page-customisation.js" type="module"></script>
+    <script src="./main.js" type="module"></script>
+</body>
+
+</html>

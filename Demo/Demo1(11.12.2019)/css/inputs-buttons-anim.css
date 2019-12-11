@@ -1,0 +1,10 @@
+.task-text:hover,
+.task__tests-link:hover {
+    transform: scale(1.1) translate(10%);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.task-form__submit:hover {
+    cursor: pointer;
+}
