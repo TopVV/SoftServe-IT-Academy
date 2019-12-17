@@ -7,8 +7,8 @@ import {
 
 export class ControllerForecast {
     constructor() {
-        this.model = new ModelForecast;
-        this.view = new ViewForecast;
+        this.model = new ModelForecast();
+        this.view = new ViewForecast();
         this.view.addListnerBtnSearch(this.handleBtnSearch.bind(this));
         this.view.addListnerInputEnter(this.handleEnterOnInput.bind(this));
         this.view.addListnerBtnReset(this.handleBtnReset.bind(this));
