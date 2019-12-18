@@ -30,4 +30,16 @@ export class animalCardTemplater {
         </div>
     </div>`
     }
+    msToYearsMonth(ms) {
+        const diffMonths = Math.round((Date.now() - Number(ms))/1000/60/60/24/30.417);
+        const years = Math.round(diffMonths/12);
+        const months = diffMonths%12;
+        let ageStr = '';
+        if(years > 0) {
+            ageStr += years === 1 ? `${years} year ` : `${years} years`;
+        }
+        if(years > 0) {
+            ageStr += years === 1 ? `${years} year ` : `${years} years`;
+        }
+    }
 }

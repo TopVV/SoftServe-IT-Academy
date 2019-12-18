@@ -1,9 +1,10 @@
 export class modelGeneralList {
     constructor(){
-        this.link = 'https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/general-files/animals-en-general.json'
+        this.enLink = 'https://maksv21.github.io/softserve/demo2/database/animals_en.json';
+        this.ruLink = 'https://maksv21.github.io/softserve/demo2/database/animals_ru.json';
     }
     getAnimalsListArr() {
-        return fetch(this.link)
+        return fetch(this.enLink)
         .then(resp => resp.json())
     }
 }
