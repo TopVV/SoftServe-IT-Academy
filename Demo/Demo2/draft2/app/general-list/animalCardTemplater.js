@@ -4,7 +4,7 @@ export class animalCardTemplater {
     }
     getCardTemplate(cardObj) {
         return `<div class="card text-center m-3">
-        <img class="img-fluid card-img-top" src=${cardObj.img} alt=${cardObj.species}>
+        <img class="img-fluid card-img-top" src=${cardObj.image} alt=${cardObj.species}>
         <h4 class="card-title font-weight-bold">${cardObj.breed}</h4>
         <div class="card-body d-flex flex-row justify-content-around">
             <div class="animal-icons">
