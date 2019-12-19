@@ -8,6 +8,6 @@ export class controllerGeneralList {
     }
     getAnimalsList() {
         this.model.getAnimalsListArr()
-        .then(animalsObj => this.view.renderAnimalsList(animalsObj))
+        .then(animalsArr => this.view.renderAnimalsList(animalsArr))
     }
 }
