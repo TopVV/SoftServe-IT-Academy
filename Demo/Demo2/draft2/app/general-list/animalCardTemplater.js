@@ -3,9 +3,9 @@ export class animalCardTemplater {
 
     }
     getCardTemplate(cardObj) {
-        return `<div class="card text-center m-3">
-        <img class="img-fluid card-img-top" src=${cardObj.image} alt=${cardObj.species}>
-        <h4 class="card-title font-weight-bold">${cardObj.breed}</h4>
+        return `<div class="card text-center m-3 border_round">
+        <img class="img-fluid card-img-top border_round" src=${cardObj.image} alt=${cardObj.species}>
+        <h4 class="font-weight-bold">${this.breedToUpper(cardObj.breed)}</h4>
         <div class="card-body d-flex flex-row justify-content-around">
             <div class="animal-icons text-secondary ">
                 <span class="species__icon">
@@ -25,8 +25,8 @@ export class animalCardTemplater {
             </div>
         </div>
         <div class="card-footer">
-            <button type="button" class="btn btn-success btn-sm">Add to cart <i class="fas fa-cart-plus"></i></button>
-            <button type="button" class="btn btn-info btn-sm">Show details</button>
+            <button type="button" class="btn btn-success btn__border_round">Add to cart <i class="fas fa-cart-plus"></i></button>
+            <button type="button" class="btn btn-info btn__border_round">Show details</button>
         </div>
     </div>`
     }
@@ -80,5 +80,9 @@ export class animalCardTemplater {
             result = female;
         }
         return result;
+    }
+    breedToUpper(breed) {
+        const wordsArr = breed.match(/\b\w+\b/g);
+        return wordsArr.map(word => `${word[0].toUpperCase()}${word.slice(1)}`).join(' ');
     }
 }

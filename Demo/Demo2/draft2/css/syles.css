@@ -1,4 +1,27 @@
-@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+
+.border_round {
+    border-radius: 10%;
+}
+
+.btn__border_round {
+    border-radius: 40px;
+}
+
+.card {
+    font-family: 'Playfair Display', serif;
+    background: #2980B9;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border: 2px solid #C0C0C0;
+    width: 300px;
+    min-width: 300px;
+    overflow: hidden;
+    transition: all .2s ease-in-out;
+}
 
 .card-img-top {
     width: 300px;
@@ -12,20 +35,25 @@
     object-fit: cover;
 } */
 
+.card h4 {
+    margin: 0;
+}
+
 .species__icon,
 .gender__icon {
     font-size: 40px;
 }
 
-.card {
-    width: 300px;
-  /*   height: 400px;
- */    /* max-width: 300px; */
-    /* max-height: 1000px; */
-    min-width: 200px;
-    font-family: 'Ubuntu', sans-serif;
-}
 
 .card__text {
     font-size: 20px;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.pag__menu {
+    justify-content: center;
 }
