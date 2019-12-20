@@ -9,7 +9,6 @@ export class modelGeneralList {
         this.totalPagesNumber;
     }
 
-
     getFirstPageData() {
         return fetch(this.enLink)
             .then(resp => {
@@ -23,7 +22,6 @@ export class modelGeneralList {
             })
     }
     getCustomPage(pageNumber) {
-        // debugger
         if (pageNumber === 'First') {
             pageNumber = 1;
         } else if (pageNumber === 'Last') {
@@ -78,5 +76,3 @@ export class modelGeneralList {
         return navObj
     }
 }
-
-// https://maksv21.github.io/softserve/demo2/database/animals_en.json

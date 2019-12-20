@@ -8,10 +8,6 @@ export class controllerGeneralList {
         this.getFirstAnimalsPage();
         this.view.addNavBarListner(this.handleNavBarClick.bind(this));
     }
-/*     getAnimalsList() {
-        this.model.getAnimalsListArr()
-        .then(animalsArr => this.view.renderAnimalsList(animalsArr))
-    } */
     getFirstAnimalsPage() {
         this.model.getFirstPageData()
         .then(respBody => {
