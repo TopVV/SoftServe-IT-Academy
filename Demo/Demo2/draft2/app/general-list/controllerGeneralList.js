@@ -18,7 +18,6 @@ export class controllerGeneralList {
     getCustomAnimalsPage(pageN){
         this.view.renderAnimalsList(this.model.getCustomPage(pageN));
         this.view.renderNavBar(this.model.getNavObj());
-        // this.view.scrollToTop();
     }
     handleNavBarClick(e){
         if(e.target.parentElement.classList.contains('listenable')) {

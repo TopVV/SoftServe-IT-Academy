@@ -15,7 +15,4 @@ export class viewGeneralList {
     addNavBarListner(func){
         this.navBar.addEventListener('click', func)
     }
-    scrollToTop(){
-        window.scrollTo(0,0);
-    }
 }
