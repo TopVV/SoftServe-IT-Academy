@@ -32,13 +32,13 @@ export class animalCardTemplater {
     }
     getNavTemplate(navObj) {
         return `<ul class="pagination justify-content-center">
-        <li class="page-item ${navObj.isFirst ? 'disabled' : 'listenable'} "><button class="page--link">First</button></li>
-        <li class="page-item ${navObj.isFirst ? 'active' : 'listenable'} "><button class="page--link">${navObj.a}</button></li>
-        <li class="page-item ${navObj.isSecond ? 'active' : 'listenable'} "><button class="page--link">${navObj.b}</button></li>
-        <li class="page-item ${navObj.isMiddle ? 'active' : 'listenable'} "><button class="page--link">${navObj.c}</button></li>
-        <li class="page-item ${navObj.isPenultimate ? 'active' : 'listenable'} "><button class="page--link">${navObj.d}</button></li>
-        <li class="page-item ${navObj.isLast ? 'active' : 'listenable'} "><button class="page--link">${navObj.e}</button></li>
-        <li class="page-item ${navObj.isLast ? 'disabled' : 'listenable'} "><button class="page--link">Last</button></li>
+        <li class="page-item ${navObj.isFirst ? 'disabled' : 'listenable'} "><a href="#" class="page-link">First</a></li>
+        <li class="page-item ${navObj.isFirst ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.a}</a></li>
+        <li class="page-item ${navObj.isSecond ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.b}</a></li>
+        <li class="page-item ${navObj.isMiddle ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.c}</a></li>
+        <li class="page-item ${navObj.isPenultimate ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.d}</a></li>
+        <li class="page-item ${navObj.isLast ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.e}</a></li>
+        <li class="page-item ${navObj.isLast ? 'disabled' : 'listenable'} "><a href="#" class="page-link">Last</a></li>
     </ul>`
     }
     msToYearsMonth(ms) {
@@ -101,3 +101,13 @@ export class animalCardTemplater {
         }
     }
 }
+
+/* `<ul class="pagination justify-content-center">
+        <li class="page-item ${navObj.isFirst ? 'disabled' : 'listenable'} "><button class="page--link">First</button></li>
+        <li class="page-item ${navObj.isFirst ? 'active' : 'listenable'} "><button class="page--link">${navObj.a}</button></li>
+        <li class="page-item ${navObj.isSecond ? 'active' : 'listenable'} "><button class="page--link">${navObj.b}</button></li>
+        <li class="page-item ${navObj.isMiddle ? 'active' : 'listenable'} "><button class="page--link">${navObj.c}</button></li>
+        <li class="page-item ${navObj.isPenultimate ? 'active' : 'listenable'} "><button class="page--link">${navObj.d}</button></li>
+        <li class="page-item ${navObj.isLast ? 'active' : 'listenable'} "><button class="page--link">${navObj.e}</button></li>
+        <li class="page-item ${navObj.isLast ? 'disabled' : 'listenable'} "><button class="page--link">Last</button></li>
+    </ul>` */
