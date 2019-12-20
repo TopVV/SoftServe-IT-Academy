@@ -30,36 +30,26 @@ export class animalCardTemplater {
         </div>
     </div>`
     }
-    getNavTemplate(navObj) {
-        return `<ul class="pagination justify-content-center">
-        <li class="page-item ${navObj.isFirst ? 'disabled' : 'listenable'} "><button class="page--link">First</button></li>
-        <li class="page-item ${navObj.isFirst ? 'active' : 'listenable'} "><button class="page--link">${navObj.a}</button></li>
-        <li class="page-item ${navObj.isSecond ? 'active' : 'listenable'} "><button class="page--link">${navObj.b}</button></li>
-        <li class="page-item ${navObj.isMiddle ? 'active' : 'listenable'} "><button class="page--link">${navObj.c}</button></li>
-        <li class="page-item ${navObj.isPenultimate ? 'active' : 'listenable'} "><button class="page--link">${navObj.d}</button></li>
-        <li class="page-item ${navObj.isLast ? 'active' : 'listenable'} "><button class="page--link">${navObj.e}</button></li>
-        <li class="page-item ${navObj.isLast ? 'disabled' : 'listenable'} "><button class="page--link">Last</button></li>
-    </ul>`
-    }
     msToYearsMonth(ms) {
-        const diffDays = Math.round((Date.now() - Number(ms)) / 1000 / 60 / 60 / 24);
-        const ageMonths = Math.round(diffDays / 30.417);
-        const ageWeeks = Math.round(diffDays / 7);
-        const ageYears = Math.round(ageMonths / 12);
+        const diffDays = Math.round((Date.now() - Number(ms))/1000/60/60/24);
+        const ageMonths = Math.round(diffDays/30.417);
+        const ageWeeks = Math.round(diffDays/7);
+        const ageYears = Math.round(ageMonths/12);
+        // const ageMonths = ageMonths%12;
         let ageStr = '';
 
 
-        if (ageYears > 0) {
+        if(ageYears > 0) {
             ageStr += ageYears === 1 ? `${ageYears} year ` : `${ageYears} years `;
-        } else if (ageMonths > 0) {
+        } else if(ageMonths > 0) {
             ageStr += ageMonths === 1 ? `${ageMonths} month` : `${ageMonths} months`;
-        } else if (ageWeeks > 0) {
+        } else if(ageWeeks > 0) {
             ageStr += ageWeeks === 1 ? `${ageWeeks} week` : `${ageWeeks} weeks`;
         } else {
             ageStr += diffDays <= 1 ? `1 day` : `${diffDays} days`;
         }
-        if (ageYears > 0 && ageMonths % 12 > 0) {
-            ageStr += ageMonths % 12 === 1 ? `${ageMonths%12} month` : `${ageMonths%12} months`;
+        if(ageYears > 0 && ageMonths%12 > 0) {
+            ageStr += ageMonths%12 === 1 ? `${ageMonths%12} month` : `${ageMonths%12} months`;
         }
         return ageStr;
     }
@@ -69,11 +59,11 @@ export class animalCardTemplater {
         const bird = `<i class="fas fa-dove"></i>`;
         const fish = `<i class="fas fa-fish"></i>`;
         let result;
-        if (species.toLowerCase() === 'cat') {
+        if(species.toLowerCase() === 'cat') {
             result = cat;
-        } else if (species.toLowerCase() === 'dog') {
+        } else if(species.toLowerCase() === 'dog') {
             result = dog;
-        } else if (species.toLowerCase() === 'bird') {
+        } else if(species.toLowerCase() === 'bird') {
             result = bird;
         } else if (species.toLowerCase() === 'fish') {
             result = fish;
@@ -84,9 +74,9 @@ export class animalCardTemplater {
         const male = '<i class="fas fa-mars"></i>';
         const female = '<i class="fas fa-venus"></i>';
         let result;
-        if (gender.toLowerCase() === 'male') {
+        if(gender.toLowerCase() === 'male') {
             result = male;
-        } else if (gender.toLowerCase() === 'female') {
+        } else if(gender.toLowerCase() === 'female'){
             result = female;
         }
         return result;
@@ -94,10 +84,5 @@ export class animalCardTemplater {
     breedToUpper(breed) {
         const wordsArr = breed.match(/\b\w+\b/g);
         return wordsArr.map(word => `${word[0].toUpperCase()}${word.slice(1)}`).join(' ');
-    }
-    getDisablFirstLast(n) {
-        if (n === 1) {
-            return 'disabled'
-        }
     }
 }
