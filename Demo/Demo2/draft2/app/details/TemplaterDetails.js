@@ -39,7 +39,7 @@ export class TemplaterDetails {
                 <li class="list-group-item border details-list__columns border-secondary w-50">Price: ${price} $</li>
             </ul>
             <div class="card-footer d-flex flex-row justify-content-around">
-                <button type="button" class="add-to-card-btn btn-lg btn btn-success btn__border_round"
+                <button type="button" class="add-to-card-btn btn-lg btn btn-success btn__border_round animated tada infinite slower"
                     data-card_id=${id}>Add to cart <i class="fas fa-cart-plus"></i></button>
                 <button type="button" class="close-btn btn btn-lg btn-secondary btn__border_round">Close</button>
             </div>
