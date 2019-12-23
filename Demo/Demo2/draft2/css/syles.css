@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
 
+body {
+    background: #F5F5F5;
+}
+
 .border_round {
-    border-radius: 10%;
+    border-radius: 5%;
 }
 
 .btn__border_round {
@@ -11,11 +15,8 @@
 .card {
     font-family: 'Playfair Display', serif;
     background: #2980B9;
-    /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
-    /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border: 2px solid #C0C0C0;
     width: 300px;
     min-width: 300px;
@@ -45,7 +46,6 @@
 .card:hover {
     transform: scale(1.1);
     cursor: pointer;
-    /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
     box-shadow: 0 20px 50px rgba(8, 112, 184, 0.7);
 }
 
@@ -53,39 +53,46 @@
     justify-content: center;
 }
 
-.page--link {
-    position: relative;
-    display: block;
-    padding: .5rem .75rem;
-    margin-left: -1px;
-    line-height: 1.25;
-    color: #007bff;
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-}
-
-.page-item:first-child .page--link {
-    margin-left: 0;
-    border-top-left-radius: .25rem;
-    border-bottom-left-radius: .25rem;
-}
-
-.page-item.disabled .page--link {
-    color: #6c757d;
+.page-item.active .page-link {
     pointer-events: none;
-    cursor: auto;
+}
+
+.animated {
+    animation-fill-mode: initial;
+}
+
+.details-window {
+    background: rgba(33, 37, 41, 0.95);
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: scroll;
+    padding-top: 3%;
+}
+
+.detailed-card {
     background-color: #fff;
-    border-color: #dee2e6;
+    max-width: 650px;
+    border-image: linear-gradient(#6DD5FA, #2980B9) 30;
+    margin: 0 auto;
+    
 }
 
-.page-item:last-child .page--link {
-    border-top-right-radius: .25rem;
-    border-bottom-right-radius: .25rem;
-}
+/* .detailed-img {
+    border-image: 3 solid linear-gradient(#6DD5FA, #2980B9);
+    max-width: 100%;
+    height: 500px;
+    object-fit: cover;
+} */
 
-.page-item.active .page--link {
-    z-index: 3;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
+.hidden {
+    display: none;
+}
+.details-list__columns {
+    margin: 0 auto;
+}
+.details-list__columns li{
+    margin: 5px 0;
 }

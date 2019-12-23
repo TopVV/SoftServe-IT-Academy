@@ -1,16 +1,28 @@
-export class ModelGeneralList {
-    constructor() {
-        this.animalBaseData = [];
+export class ModelPetsData {
+    constructor({subscribe, unsubscribe, notify}) {
+        this.enLink = 'https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/general-files/animals_en.json';
+        this.ruLink = 'https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/general-files/animals_ru.json';
         this.pageSize = 20;
+        this.animalBaseData = [];
         this.currentPageData = [];
         this.currentPageNumber = 1;
         this.totalPagesNumber;
+        this.getAnimalBaseData();
+        this.notify = notify;
     }
-    setNewAnimalBase(newBaseArr) {
-        this.animalBaseData = [...newBaseArr];
-        this.totalPagesNumber = Math.ceil(this.animalBaseData.length / this.pageSize);
+
+    getAnimalBaseData() {
+        fetch(this.enLink)
+            .then(resp => resp.json())
+            .then(respBody => {
+                this.animalBaseData = [...respBody];
+                this.totalPagesNumber = Math.ceil(this.animalBaseData.length / this.pageSize);
+                this.currentPageData = this.animalBaseData.slice(0, this.pageSize);
+                this.notify('pets-data-first-rdy', this.getCustomPage(pageNumber));
+            })
     }
-    getCustomData(pageNumber = 1) {
+
+    getCustomPage(pageNumber = 1) {
         if (pageNumber === -1) {
             pageNumber = this.totalPagesNumber;
         }
@@ -33,11 +45,7 @@ export class ModelGeneralList {
             last: this.totalPagesNumber,
         }
     }
-    getAnimalById(id){
-        for (let i = 0; i < this.currentPageData.length; i++) {
-            if(this.currentPageData[i].id === id) {
-                return this.currentPageData[i]
-            }
-        }
+    setPageSize(newPageSize) {
+        this.pageSize = newPageSize;
     }
 }

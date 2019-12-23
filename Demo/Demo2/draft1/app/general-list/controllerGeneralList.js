@@ -1,17 +1,40 @@
-import {modelGeneralList} from './modelGeneralList.js';
-import {viewGeneralList} from './viewGeneralList.js';
+import {
+    ModelGeneralList
+} from './ModelGeneralList.js';
+import {
+    ViewGeneralList
+} from './ViewGeneralList.js';
 
-export class controllerGeneralList {
-    constructor(){
-        this.model = new modelGeneralList();
-        this.view = new viewGeneralList();
+export class ControllerGeneralList {
+    constructor({subscribe, unsubscribe, notify}) {
+        this.model = new ModelGeneralList({subscribe, unsubscribe, notify});
+        this.view = new ViewGeneralList();
+        this.getCustomAnimalsPage()
+        // this.getFirstAnimalsPage();
+        // this.view.addNavBarListner(this.handleNavBarClick.bind(this));
+        this.notify = notify;
+        this.subscribe = subscribe;
+        this.subscribe('pets-data-rdy', this.getCustomAnimalsPage.bind(this));
     }
-    getAnimalsList() {
-        this.model.getAnimalsListArr()
-        .then(animalsArr => this.view.renderAnimalsList(animalsArr))
+   /*  getFirstAnimalsPage() {
+        this.model.getFirstPageData()
+            .then(respBody => {
+                this.view.renderAnimalsList(respBody);
+                this.view.renderNavBar(this.model.getNavArr(), this.model.getNavStat());
+                this.view.addDetailsListner(this.handleDetailsBtnClick.bind(this));
+            })
+    } */
+    
+    getCustomAnimalsPage(pageN) {
+        this.view.renderAnimalsList(this.model.getCustomPage(pageN));
+        this.view.renderNavBar(this.model.getNavArr(), this.model.getNavStat());
     }
-    check(){
-        console.log(this.model.animalBaseSrc, '2')
-        
+    handleNavBarClick(e) {
+        if (e.target.dataset.page_n !== undefined) {
+            this.getCustomAnimalsPage(Number(e.target.dataset.page_n));
+        }
+    }
+    handleDetailsBtnClick(e){
+        this.notify('show-details', this.view.getClickedElemId(e));
     }
 }

@@ -1,44 +1,44 @@
-export class animalCardTemplater {
+export class TemplaterAnimalCard {
     constructor() {
 
     }
-    getCardTemplate(cardObj) {
-        return `<div class="card text-center m-3 border_round">
-        <img class="img-fluid card-img-top border_round" src=${cardObj.image} alt=${cardObj.species}>
-        <h4 class="font-weight-bold">${this.breedToUpper(cardObj.breed)}</h4>
+    getCardTemplate({id, species, price, gender, birth_date, breed, image,}) {
+        return `<div class="card text-center m-3 border_round animated bounceInDown slower">
+        <img class="img-fluid card-img-top border_round" src=${image} alt=${species}>
+        <h4 class="font-weight-bold">${this.firstLetrsToUp(breed)}</h4>
         <div class="card-body d-flex flex-row justify-content-around">
             <div class="animal-icons text-secondary ">
                 <span class="species__icon">
-                    ${this.defineSpeciesIcon(cardObj.species)}
+                    ${this.defineSpeciesIcon(species)}
                 </span>
                 <span class="gender__icon">
-                    ${this.defineGenderIcon(cardObj.gender)}
+                    ${this.defineGenderIcon(gender)}
                 </span>
             </div>
             <div class="card__text font-weight-bold">
                 <div class="animal-price">
-                    ${this.msToYearsMonth(cardObj.birth_date)}
+                    ${this.msToYearsMonth(birth_date)}
                 </div>
                 <div class="animal-price">
-                    ${cardObj.price} $
+                    ${price} $
                 </div>
             </div>
         </div>
         <div class="card-footer">
-            <button type="button" class="btn btn-success btn__border_round">Add to cart <i class="fas fa-cart-plus"></i></button>
-            <button type="button" class="btn btn-info btn__border_round">Show details</button>
+            <button type="button" class="add-to-card-btn btn btn-success btn__border_round">Add to cart <i class="fas fa-cart-plus"></i></button>
+            <button type="button" class="details-btn btn btn-info btn__border_round" data-card_id=${id}>Show details</button>
         </div>
     </div>`
     }
-    getNavTemplate(navObj) {
+    getNavTemplate(navArr) {
+        let numbersStr = '';
+        for (let i = 0; i < navArr.length; i++) {
+            numbersStr += `<li class="page-item"><a href="#" class="page-link" data-page_n=${navArr[i]}>${navArr[i]}</a></li>`;
+        }
         return `<ul class="pagination justify-content-center">
-        <li class="page-item ${navObj.isFirst ? 'disabled' : 'listenable'} "><a href="#" class="page-link">First</a></li>
-        <li class="page-item ${navObj.isFirst ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.a}</a></li>
-        <li class="page-item ${navObj.isSecond ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.b}</a></li>
-        <li class="page-item ${navObj.isMiddle ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.c}</a></li>
-        <li class="page-item ${navObj.isPenultimate ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.d}</a></li>
-        <li class="page-item ${navObj.isLast ? 'active' : 'listenable'} "><a href="#" class="page-link">${navObj.e}</a></li>
-        <li class="page-item ${navObj.isLast ? 'disabled' : 'listenable'} "><a href="#" class="page-link">Last</a></li>
+        <li class="page-item"><a href="#" class="page-link" data-page_n='1'><<</a></li>
+        ${numbersStr}
+        <li class="page-item"><a href="#" class="page-link" data-page_n='-1'>>></a></li>
     </ul>`
     }
     msToYearsMonth(ms) {
@@ -91,7 +91,7 @@ export class animalCardTemplater {
         }
         return result;
     }
-    breedToUpper(breed) {
+    firstLetrsToUp(breed) {
         const wordsArr = breed.match(/\b\w+\b/g);
         return wordsArr.map(word => `${word[0].toUpperCase()}${word.slice(1)}`).join(' ');
     }

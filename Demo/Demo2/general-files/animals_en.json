@@ -1222,19 +1222,6 @@
     "hair": "medium"
   },
   {
-    "id": 213,
-    "species": "dog",
-    "price": 4750,
-    "gender": "male",
-    "weight": 7,
-    "birth_date": 1523566800000,
-    "color": "white",
-    "breed": "Pug",
-    "image": "https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/img/animals_pics/id213.jpg",
-    "is_sterile": false,
-    "hair": "short"
-  },
-  {
     "id": 214,
     "species": "dog",
     "price": 4650,

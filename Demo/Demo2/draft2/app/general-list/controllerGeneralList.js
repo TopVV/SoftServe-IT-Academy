@@ -1,27 +1,40 @@
-import {modelGeneralList} from './modelGeneralList.js';
-import {viewGeneralList} from './viewGeneralList.js';
+import {
+    ModelGeneralList
+} from './ModelGeneralList.js';
+import {
+    ViewGeneralList
+} from './ViewGeneralList.js';
 
-export class controllerGeneralList {
-    constructor(){
-        this.model = new modelGeneralList();
-        this.view = new viewGeneralList();
-        this.getFirstAnimalsPage();
+export class ControllerGeneralList {
+    constructor({subscribe, unsubscribe, notify}) {
+        this.model = new ModelGeneralList();
+        this.view = new ViewGeneralList();
+        this.subscribe = subscribe;
+        this.notify = notify;
+        this.subscribe('animals-data-updated', this.getFirstAnimalsPage.bind(this));
+        this.subscribe('new-search-result', this.getSearchedPage.bind(this));
+    }
+    getFirstAnimalsPage(animalBase){
+        this.model.setNewAnimalBase(animalBase);
+        this.getCustomAnimalsPage();
+    }
+    
+    getCustomAnimalsPage(pageN) {
+        this.view.renderAnimalsList(this.model.getCustomData(pageN));
+        this.view.renderNavBar(this.model.getNavArr(), this.model.getNavStat());
         this.view.addNavBarListner(this.handleNavBarClick.bind(this));
+        this.view.addDetailsListner(this.handleDetailsBtnClick.bind(this));
     }
-    getFirstAnimalsPage() {
-        this.model.getFirstPageData()
-        .then(respBody => {
-            this.view.renderAnimalsList(respBody);
-            this.view.renderNavBar(this.model.getNavObj());
-        })
+    getSearchedPage(resultsArr) {
+        this.view.renderAnimalsList(resultsArr);
+        this.view.addDetailsListner(this.handleDetailsBtnClick.bind(this));
     }
-    getCustomAnimalsPage(pageN){
-        this.view.renderAnimalsList(this.model.getCustomPage(pageN));
-        this.view.renderNavBar(this.model.getNavObj());
-    }
-    handleNavBarClick(e){
-        if(e.target.parentElement.classList.contains('listenable')) {
-            this.getCustomAnimalsPage(e.target.innerText);
+    handleNavBarClick(e) {
+        if (e.target.dataset.page_n !== undefined) {
+            this.getCustomAnimalsPage(Number(e.target.dataset.page_n));
         }
+    }
+    handleDetailsBtnClick(e){
+        this.notify('show-details', this.model.getAnimalById(Number(e.target.dataset.card_id)));
     }
 }

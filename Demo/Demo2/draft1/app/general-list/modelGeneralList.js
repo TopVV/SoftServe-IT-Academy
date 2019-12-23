@@ -1,19 +1,60 @@
-export class modelGeneralList {
-    constructor() {
+export class ModelGeneralList {
+    constructor({
+        subscribe,
+        unsubscribe,
+        notify
+    }) {
         this.enLink = 'https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/general-files/animals_en.json';
         this.ruLink = 'https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/general-files/animals_ru.json';
-        this.animalBaseSrc = [];
+        this.notify = notify;
+        this.animalBaseData = [];
         this.pageSize = 20;
+        this.currentPageData = [];
+        this.currentPageNumber = 1;
+        this.totalPagesNumber;
+        this.getAnimalBaseData();
     }
-    getAnimalsListArr() {
-        return fetch(this.enLink)
+    getAnimalBaseData() {
+        fetch(this.enLink)
             .then(resp => resp.json())
-            .then(animalsArr => {
-                this.animalBaseSrc = [...animalsArr]
-                console.log(animalsArr, '1');
-                return animalsArr
+            .then(respBody => {
+                this.animalBaseData = [...respBody];
+                this.totalPagesNumber = Math.ceil(this.animalBaseData.length / this.pageSize);
+                this.currentPageData = this.animalBaseData.slice(0, this.pageSize);
+                this.notify('pets-data-rdy', this.animalBaseData);
             })
     }
-}
+    getCustomPageInfo(pageNumber = 1) {
+        return {
+            pageData: getCustomData(pageNumber),
+            navArr: getNavArr(),
+            navStat: getNavStat(),
+        }
+    }
 
-// https://maksv21.github.io/softserve/demo2/database/animals_en.json
+
+    getCustomData(pageNumber) {
+        if (pageNumber === -1) {
+            pageNumber = this.totalPagesNumber;
+        }
+        this.currentPageData = this.animalBaseData.slice((pageNumber - 1) * this.pageSize, pageNumber * this.pageSize);
+        this.currentPageNumber = pageNumber;
+        return this.currentPageData;
+    }
+    getNavArr() {
+        const navArr = [];
+        let startPageN = this.currentPageNumber - 2 > 1 ? this.currentPageNumber - 2 : 1;
+        let endPageN = (this.currentPageNumber + 2) <= this.totalPagesNumber ? (this.currentPageNumber + 2) : this.totalPagesNumber;
+        for (let i = startPageN; i <= endPageN; i++) {
+            navArr.push(i);
+        }
+        return navArr;
+    }
+    getNavStat() {
+        return {
+            current: this.currentPageNumber,
+            last: this.totalPagesNumber,
+        }
+    }
+
+}
