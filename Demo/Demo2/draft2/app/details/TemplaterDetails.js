@@ -20,7 +20,7 @@ export class TemplaterDetails {
         hair
     }) {
         return `<div class="details-window">
-        <div class="detailed-card text-center">
+        <div class="detailed-card text-center animated zoomIn">
             <img class="detailed-img img-fluid" src=${image} alt=${species}>
             <h2>${this.cardTempl.firstLetrsToUp(breed)}</h2>
             <ul class="list-group">

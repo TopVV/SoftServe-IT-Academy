@@ -3,7 +3,7 @@ export class TemplaterAnimalCard {
 
     }
     getCardTemplate({id, species, price, gender, birth_date, breed, image,}) {
-        return `<div class="card text-center m-3 border_round animated bounceInDown slower">
+        return `<div class="card text-center m-3 border_round animated bounceInDown">
         <img class="img-fluid card-img-top border_round" src=${image} alt=${species}>
         <h4 class="font-weight-bold">${this.firstLetrsToUp(breed)}</h4>
         <div class="card-body d-flex flex-row justify-content-around">
