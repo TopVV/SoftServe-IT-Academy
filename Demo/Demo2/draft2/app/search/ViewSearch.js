@@ -4,17 +4,21 @@ export class ViewSearch {
     constructor() {
         this.searcForm = document.querySelector('.search-form');
         this.template = new TemplateSearch();
+        this.searchBtn;
+        this.searchInput;
     }
     renderSearchFrom(){
         this.searcForm.innerHTML = this.template.getSearchTemplate();
+        this.searchBtn = document.querySelector('.search-btn');
+        this.searchInput = document.querySelector('.search-input');
     }
-    addSearchBtnListner(func){
-        document.querySelector('.search-btn').addEventListener('click', func);
+    addSearchInputListner(func){
+        this.searchInput.addEventListener('keyup', func);
     }
     getInputValue(){
-        return document.querySelector('.search-input').value;
+        return this.searchInput.value;
     }
     resetInputValue(){
-        document.querySelector('.search-input').value = ''
+        this.searchInput.value = '';
     }
 }

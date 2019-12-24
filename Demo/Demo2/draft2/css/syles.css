@@ -1,83 +1,92 @@
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display&display=swap");
 
 body {
-    background: #F5F5F5;
+  background: #f5f5f5;
 }
 
+/* header {
+  background-image: url('/Demo2/img/pet-shop1.png');
+  min-height: 700px;
+} */
 .border_round {
-    border-radius: 5%;
+  border-radius: 5%;
 }
 
 .btn__border_round {
-    border-radius: 40px;
+  border-radius: 40px;
 }
 
-.card {
-    font-family: 'Playfair Display', serif;
-    background: #2980B9;
-    background: -webkit-linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
-    background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
-    border: 2px solid #C0C0C0;
-    width: 300px;
-    min-width: 300px;
-    overflow: hidden;
-    transition: all .2s ease-in-out;
+.capitalized-sentence {
+  text-transform: capitalize;
+}
+
+.animals-window .card {
+  font-family: "Playfair Display", serif;
+  background: #2980b9;
+  background: -webkit-linear-gradient(to top, #ffffff, #6dd5fa, #2980b9);
+  background: linear-gradient(to top, #ffffff, #6dd5fa, #2980b9);
+  border: 2px solid #c0c0c0;
+  width: 250px;
+  min-width: 250px;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
 }
 
 .card-img-top {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
 }
 
 .card h4 {
-    margin: 0;
+  margin: 0;
 }
 
 .species__icon,
 .gender__icon {
-    font-size: 40px;
+  font-size: 30px;
 }
 
 .card__text {
-    font-size: 20px;
+  font-size: 18px;
 }
 
-.card:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-    box-shadow: 0 20px 50px rgba(8, 112, 184, 0.7);
+.animals-window .card:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  box-shadow: 0 20px 50px rgba(8, 112, 184, 0.7);
 }
 
 .pag__menu {
-    justify-content: center;
+  justify-content: center;
 }
 
 .page-item.active .page-link {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .animated {
-    animation-fill-mode: initial;
+  animation-fill-mode: initial;
 }
 
-.details-window {
-    background: rgba(33, 37, 41, 0.95);
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    overflow: scroll;
-    padding-top: 3%;
+.details-window,
+.cart-window
+ {
+  background: rgba(33, 37, 41, 0.95);
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: scroll;
+  padding-top: 3%;
 }
 
 .detailed-card {
-    background-color: #fff;
-    max-width: 650px;
-    border-image: linear-gradient(#6DD5FA, #2980B9) 30;
-    margin: 0 auto;
-    
+  background-color: #fff;
+  max-width: 650px;
+  border-image: linear-gradient(#6dd5fa, #2980b9) 30;
+  margin: 0 auto;
 }
 
 /* .detailed-img {
@@ -88,11 +97,17 @@ body {
 } */
 
 .hidden {
-    display: none;
+  display: none;
 }
 .details-list__columns {
-    margin: 0 auto;
+  margin: 0 auto;
 }
-.details-list__columns li{
-    margin: 5px 0;
+.details-list__columns li {
+  margin: 5px 0;
+}
+
+
+.cart-window .card {
+  width: 600px;
+  margin: 0 auto;
 }

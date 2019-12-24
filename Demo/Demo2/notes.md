@@ -4,7 +4,11 @@
 - innerHTML поменять на Element.insertAdjacentHTML()
 - error handling
 - scrollTop при выборе детейлс запоминать
-- присваивать правильный нав бар к поиску
 - переместить из модели в дата папке нотифай в контроллер
-- не очищать строку поиска
-- добавлять после поиска евент лиснеры
+- переместить из контролеров поиск чего-то в хтмл во вью
+<!-- petzone pet4homes -->
+
+
+<!-- <a href="https://www.freepik.com/free-photos-vectors/banner">Banner vector created by freepik - www.freepik.com</a>
+
+https://www.freepik.com/free-photos-vectors/petshop -->
