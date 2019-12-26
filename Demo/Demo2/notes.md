@@ -6,6 +6,15 @@
 - scrollTop при выборе детейлс запоминать
 - переместить из модели в дата папке нотифай в контроллер
 - переместить из контролеров поиск чего-то в хтмл во вью
+- model main-window - поменять на объект define species icon
+- main-window get nav template 
+- cart view last
+- remove add
+- session storage
+- посмотреть fluent syntax
+- DocumentFragment 
+- двузначные числа на корзине
+- type-search
 <!-- petzone pet4homes -->
 
 

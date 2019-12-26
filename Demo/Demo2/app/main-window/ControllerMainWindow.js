@@ -1,5 +1,5 @@
-import { ModelMainWindow } from "./ModelMainWindow.js";
-import { ViewMainWindow } from "./ViewMainWindow.js";
+import { ModelMainWindow } from './ModelMainWindow.js';
+import { ViewMainWindow } from './ViewMainWindow.js';
 
 export class ControllerMainWindow {
   constructor({ subscribe, unsubscribe, notify }) {
@@ -7,8 +7,9 @@ export class ControllerMainWindow {
     this.view = new ViewMainWindow();
     this.subscribe = subscribe;
     this.notify = notify;
-    this.subscribe("animals-data-updated", this.getFirstAnimalsPage.bind(this));
-    this.subscribe("new-search-result", this.getSearchedPage.bind(this));
+    this.subscribe('animals-data-updated', this.getFirstAnimalsPage.bind(this));
+    this.subscribe('new-search-result', this.getSearchedPage.bind(this));
+    this.subscribe('species-select-result', this.getSearchedPage.bind(this));
   }
   getFirstAnimalsPage(animalBase) {
     this.model.setNewAnimalBase(animalBase);
@@ -25,23 +26,30 @@ export class ControllerMainWindow {
     this.getCustomAnimalsPage();
   }
   handleMainWindowClick(e) {
-    if (e.target.closest(".add-to-cart-btn")) {
+    if (e.target.closest('.add-to-cart-btn')) {
       this.notify(
-        "add-to-cart",
+        'add-to-cart',
         this.model.getAnimalById(
-          Number(e.target.closest(".card ").dataset.card_id)
+          Number(e.target.closest('.card').dataset.card_id)
         )
       );
-    } else if (e.target.closest(".card ")) {
+    } else if (e.target.closest('.card')) {
       this.notify(
-        "show-details",
+        'show-details',
         this.model.getAnimalById(
-          Number(e.target.closest(".card ").dataset.card_id)
+          Number(e.target.closest('.card').dataset.card_id)
         )
+      );
+    } else if (e.target.closest('.species-btn')) {
+      console.log(e.target.closest('.species-btn').data_species);
+      
+      this.notify(
+        'species-select-new',
+        e.target.closest('.species-btn').data_species
       );
     } else if (
       e.target.dataset.page_n !== undefined &&
-      e.target.classList.contains("page-link")
+      e.target.classList.contains('page-link')
     ) {
       this.getCustomAnimalsPage(Number(e.target.dataset.page_n));
     }

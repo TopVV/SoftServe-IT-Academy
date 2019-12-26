@@ -1,17 +1,20 @@
 export class TemplateCart {
   constructor() {}
   getCartBtnTemplate(animalsInCartN) {
-    return `<button type="button" class="btn btn-success">${
-      animalsInCartN > 0 ? animalsInCartN : ""
-    }<i class="fas fa-shopping-cart"></i></button>`;
+    return `<button type="button" class="cart-button">
+    
+    <i class="fas fa-shopping-cart">
+    <span class='number-in-cart'>${animalsInCartN > 0 ? animalsInCartN : ''}</span>
+    </i>
+    </button>`;
   }
   getCartWindow(animalsDataRows) {
     return `<div class="cart-window">
      <div class="card text-center cart-area">
-         <div class="card-header bg-success">
+         <div class="card-header bg-success font-weight-bold">
              Cart
          </div>
-         <ul class="list-group list-group">
+         <ul class="list-group list-group font-italic">
              ${animalsDataRows}
          </ul>
          <div class="card-footer d-flex flex-row justify-content-around">
@@ -25,6 +28,11 @@ export class TemplateCart {
  </div>`;
   }
   getAnimalRowTemplate({ species, price, breed }) {
-    return `<li class="list-group-item capitalized-sentence">${species} ${breed} ${price}</li>`;
+    return `<li class="list-group-item capitalized-sentence">${species} ${breed} ${price}
+             <i class="remove-from-cart fas fa-times-circle text-danger"></i>
+            </li>`;
+  }
+  getEmptyCartTemplate() {
+    return `<li class='list-group-item capitalized-sentence'>No animals were added yet :(</li>`;
   }
 }

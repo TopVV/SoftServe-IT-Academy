@@ -8,13 +8,18 @@ export class ModelCart {
       this.animalsInCartArr.push(animalObjClone);
     }
   }
-  getAnimalsInCart(){
-      return this.animalsInCartArr;
+  getAnimalsInCart() {
+    return this.animalsInCartArr;
   }
   clearAnimalsInCart() {
-      this.animalsInCartArr.length = 0;
+    this.animalsInCartArr.length = 0;
   }
   getCartAnimalsQuantity() {
-      return this.animalsInCartArr.length;
+    return this.animalsInCartArr.length;
+  }
+  deleteAnimalFromCart(animalDelete) {
+    this.animalsInCartArr = this.animalsInCartArr.filter(
+      animalObj => animalObj.id !== animalDelete.id
+    );
   }
 }
