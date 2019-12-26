@@ -157,7 +157,7 @@ body {
 header {
 }
 .top-section {
-  background-image: url('/Demo2/img/pet-shop-transp.png');
+  background-image: url('./img/pet-shop-transp.png');
   background-size: contain;
   background-position: top left;
   background-repeat: no-repeat;

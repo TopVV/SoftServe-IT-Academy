@@ -41,11 +41,9 @@ export class ControllerMainWindow {
         )
       );
     } else if (e.target.closest('.species-btn')) {
-      console.log(e.target.closest('.species-btn').data_species);
-      
       this.notify(
         'species-select-new',
-        e.target.closest('.species-btn').data_species
+        e.target.closest('.species-btn').dataset.quick_species
       );
     } else if (
       e.target.dataset.page_n !== undefined &&

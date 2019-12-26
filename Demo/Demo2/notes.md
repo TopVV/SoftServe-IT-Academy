@@ -3,9 +3,7 @@
 - добавить пагинацию сверху
 - innerHTML поменять на Element.insertAdjacentHTML()
 - error handling
-- scrollTop при выборе детейлс запоминать
-- переместить из модели в дата папке нотифай в контроллер
-- переместить из контролеров поиск чего-то в хтмл во вью
+- scroll position при выборе детейлс запоминать
 - model main-window - поменять на объект define species icon
 - main-window get nav template 
 - cart view last
@@ -15,6 +13,7 @@
 - DocumentFragment 
 - двузначные числа на корзине
 - type-search
+- счетчик животных на корзине после очищения корзины
 <!-- petzone pet4homes -->
 
 
