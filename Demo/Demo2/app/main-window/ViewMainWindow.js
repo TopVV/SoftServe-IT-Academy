@@ -3,7 +3,7 @@ import { TemplateMainWindow } from './TemplateMainWindow.js';
 export class ViewMainWindow {
   constructor() {
     this.templater = new TemplateMainWindow();
-    this.mainWindow = document.querySelector('.main-wrapper'); // main-window
+    this.mainWindow = document.querySelector('.main-window'); // main-window
     this.animalsWindow = document.querySelector('.animals-window');
     this.navBar = document.querySelector('.nav-bar');
   }
