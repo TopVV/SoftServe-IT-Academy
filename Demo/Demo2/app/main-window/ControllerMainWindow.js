@@ -14,16 +14,19 @@ export class ControllerMainWindow {
   getFirstAnimalsPage(animalBase) {
     this.model.setNewAnimalBase(animalBase);
     this.getCustomAnimalsPage();
-    this.view.addMainlWindowListner(this.handleMainWindowClick.bind(this));
+    this.view.addMainWindowListener(this.handleMainWindowClick.bind(this));
   }
-
   getCustomAnimalsPage(pageN) {
     this.view.renderAnimalsList(this.model.getCustomData(pageN));
     this.view.renderNavBar(this.model.getNavArr(), this.model.getNavStat());
+    this.view.scrollToYPosition(this.model.getScrollYPosition());
   }
   getSearchedPage(resultsArr) {
     this.model.setNewAnimalBase(resultsArr);
     this.getCustomAnimalsPage();
+  }
+  updateScrollYPosition() {
+    this.model.setScrollYPosition(this.view.getScrollYPosition());
   }
   handleMainWindowClick(e) {
     if (e.target.closest('.add-to-cart-btn')) {

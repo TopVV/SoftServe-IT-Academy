@@ -8,7 +8,7 @@ export class ControllerSearch {
     }
     getSearchForm(){
         this.view.renderSearchFrom();
-        this.view.addSearchInputListner(this.handleSearchBtn.bind(this));
+        this.view.addSearchInputListener(this.handleSearchBtn.bind(this));
     }
     handleSearchBtn(){
         this.notify('new-search-request', this.view.getInputValue().toLowerCase());

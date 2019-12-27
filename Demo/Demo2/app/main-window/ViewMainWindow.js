@@ -2,18 +2,18 @@ import { TemplateMainWindow } from './TemplateMainWindow.js';
 
 export class ViewMainWindow {
   constructor() {
-    this.templater = new TemplateMainWindow();
+    this.template = new TemplateMainWindow();
     this.mainWindow = document.querySelector('.main-window'); // main-window
     this.animalsWindow = document.querySelector('.animals-window');
     this.navBar = document.querySelector('.nav-bar');
   }
   renderAnimalsList(animalsArr) {
     this.animalsWindow.innerHTML = animalsArr
-      .map(obj => this.templater.getCardTemplate(obj))
+      .map(obj => this.template.getCardTemplate(obj))
       .join('');
   }
   renderNavBar(navArr, { current, last }) {
-    this.navBar.innerHTML = this.templater.getNavTemplate(navArr);
+    this.navBar.innerHTML = this.template.getNavTemplate(navArr);
     const navBtnArr = [...document.querySelectorAll('.page-item')];
     const pageLinkArr = [...document.querySelectorAll('.page-link')];
     if (current === 1) {
@@ -28,10 +28,16 @@ export class ViewMainWindow {
       }
     }
   }
-  addMainlWindowListner(func) {
+  addMainWindowListener(func) {
     this.mainWindow.addEventListener('click', func);
   }
-  /*     scrollToTop() {
-            window.scrollTo(0, 0);
-        } */
+  getScrollYPosition() {
+    return window.scrollY;
+  }
+  scrollToYPosition(position) {
+    scrollTo(0, position);
+  }
+/*   scrollToTop() {
+    window.scrollTo(0, 0);
+  } */
 }

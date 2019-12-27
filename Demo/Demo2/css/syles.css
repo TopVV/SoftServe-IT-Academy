@@ -255,7 +255,6 @@ body {
   box-shadow: 0 20px 50px rgba(218, 154, 83, 0.7);
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
-  text-align: right;
 }
 /* .search-input::placeholder {
 } */

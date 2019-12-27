@@ -8,7 +8,7 @@ export class ModelDetails {
   getCurrentAnimal(){
     return this.currentAnimal;
   }
-  prepareObjForTemplater(obj) {
+  prepareObjForTemplate(obj) {
     const objClone = { ...obj };
     objClone.color = this.getColorsFormated(obj.color);
     objClone.birth_date = this.getBirthDate(obj.birth_date);

@@ -5,6 +5,7 @@ export class ModelMainWindow {
     this.currentPageData = [];
     this.currentPageNumber = 1;
     this.totalPagesNumber;
+    this.scrollYPosition = 0;
   }
   setNewAnimalBase(newBaseArr) {
     this.animalBaseData = [...newBaseArr];
@@ -49,6 +50,12 @@ export class ModelMainWindow {
       }
     }
   }
+  setScrollYPosition(position) {
+    this.scrollYPosition = position;
+  }
+  getScrollYPosition(){
+    return this.scrollYPosition;
+  }
   prepareObjForTemplate(obj) {
     const objClone = { ...obj };
     objClone.species = this.defineSpeciesIcon(obj.species);
@@ -63,7 +70,7 @@ export class ModelMainWindow {
     const ageMonths = Math.round(diffDays / 30.417);
     const ageWeeks = Math.round(diffDays / 7);
     const ageYears = Math.round(ageMonths / 12);
-    let ageStr = "";
+    let ageStr = '';
 
     if (ageYears > 0) {
       ageStr += ageYears === 1 ? `${ageYears} year ` : `${ageYears} years `;
@@ -86,9 +93,9 @@ export class ModelMainWindow {
     const male = '<i class="fas fa-mars"></i>';
     const female = '<i class="fas fa-venus"></i>';
     let result;
-    if (gender.toLowerCase() === "male") {
+    if (gender.toLowerCase() === 'male') {
       result = male;
-    } else if (gender.toLowerCase() === "female") {
+    } else if (gender.toLowerCase() === 'female') {
       result = female;
     }
     return result;
@@ -99,13 +106,13 @@ export class ModelMainWindow {
     const bird = `<i class="fas fa-dove"></i>`;
     const fish = `<i class="fas fa-fish"></i>`;
     let result;
-    if (species.toLowerCase() === "cat") {
+    if (species.toLowerCase() === 'cat') {
       result = cat;
-    } else if (species.toLowerCase() === "dog") {
+    } else if (species.toLowerCase() === 'dog') {
       result = dog;
-    } else if (species.toLowerCase() === "bird") {
+    } else if (species.toLowerCase() === 'bird') {
       result = bird;
-    } else if (species.toLowerCase() === "fish") {
+    } else if (species.toLowerCase() === 'fish') {
       result = fish;
     }
     return result;
