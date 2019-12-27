@@ -29,9 +29,13 @@ export class ModelAnimalsData {
   }
   getSpeciesData(species) {
     let speciesDataArr = [];
-    speciesDataArr = this.animalBaseData.filter(
-      obj => obj.species === species
-    );
+    if (species === 'all') {
+      speciesDataArr = [...this.animalBaseData];
+    } else {
+      speciesDataArr = this.animalBaseData.filter(
+        obj => obj.species === species
+      );
+    }
     return speciesDataArr;
   }
 }
