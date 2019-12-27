@@ -21,7 +21,7 @@ export class ModelMainWindow {
       pageNumber * this.pageSize
     );
     this.currentPageNumber = pageNumber;
-    return this.currentPageData.map(obj => this.prepareObjForTemplater(obj));
+    return this.currentPageData.map(obj => this.prepareObjForTemplate(obj));
   }
   getNavArr() {
     const navArr = [];
@@ -49,7 +49,7 @@ export class ModelMainWindow {
       }
     }
   }
-  prepareObjForTemplater(obj) {
+  prepareObjForTemplate(obj) {
     const objClone = { ...obj };
     objClone.species = this.defineSpeciesIcon(obj.species);
     objClone.gender = this.defineGenderIcon(obj.gender);

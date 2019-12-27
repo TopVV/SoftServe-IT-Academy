@@ -13,8 +13,8 @@ body {
   background: -webkit-linear-gradient(to top, #ffd194, #d1913c);
   background: linear-gradient(to top, #ffd194, #d1913c);
 }
-.bg-img {
-}
+/* .bg-img {
+} */
 .main-window {
   position: relative;
   position: relative;
@@ -154,8 +154,8 @@ body {
 } */
 
 /* --- header --- */
-header {
-}
+/* header {
+} */
 .top-section {
   background-image: url('./../img/pet-shop-transp.png');
   background-size: contain;
@@ -225,8 +225,8 @@ header {
   font-size: 30px;
 }
 /* --- quick-species --- */
-.quick-species {
-}
+/* .quick-species {
+} */
 .species-btn {
   width: 182px;
   height: 145px;
@@ -251,16 +251,14 @@ header {
   border-radius: 47px;
   width: 47px;
   height: 47px;
-  padding-left: 20px;
+  padding-left: 45px;
   box-shadow: 0 20px 50px rgba(218, 154, 83, 0.7);
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
   text-align: right;
 }
-.search-input::placeholder {
-  padding-left: 25px;
-  padding-right: 10px;
-}
+/* .search-input::placeholder {
+} */
 .search-input-icon:hover + .search-input,
 .search-input:hover,
 .search-input:focus {
