@@ -6,16 +6,16 @@ export class ControllerAnimalsData {
     this.model = new ModelAnimalsData({ subscribe, unsubscribe, notify });
     this.subscribe = subscribe;
     this.notify = notify;
-    this.subscribe('new-search-request', this.getSearchedData.bind(this));
+    // this.subscribe('new-search-request', this.getSearchedData.bind(this));
     this.subscribe('species-select-new', this.getRequestedSpeciesData.bind(this));
   }
-  getSearchedData(input) {
+/*   getSearchedData(input) {
     this.notify('new-search-result', this.model.getSearchedData(input));
-  }
+  } */
   getRequestedSpeciesData(species) {
-    this.notify('species-select-result', this.getSpiciesDataArr(species));
+    this.notify('species-select-result', this.getSpicesDataArr(species));
   }
-  getSpiciesDataArr(species) {
+  getSpicesDataArr(species) {
     return this.model.getSpeciesData(species);
   }
 }

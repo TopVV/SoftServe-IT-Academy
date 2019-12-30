@@ -6,6 +6,7 @@ export class ViewMainWindow {
     this.mainWindow = document.querySelector('.main-window'); // main-window
     this.animalsWindow = document.querySelector('.animals-window');
     this.navBar = document.querySelector('.nav-bar');
+    this.arrowUp = document.querySelector('.arrow-up');
   }
   renderAnimalsList(animalsArr) {
     this.animalsWindow.innerHTML = animalsArr
@@ -28,6 +29,18 @@ export class ViewMainWindow {
       }
     }
   }
+  renderQuickSpecies() {
+    document.querySelector(
+      '.quick-species'
+    ).innerHTML = this.template.getQuickSpeciesTemplate();
+  }
+  renderActiveSpecies(activeSpecies) {
+    [...document.querySelectorAll('.species-btn')].forEach(btn => {
+      if (btn.dataset.quick_species === activeSpecies) {
+        btn.classList.add('active-species', 'disabled-species');
+      }
+    });
+  }
   addMainWindowListener(func) {
     this.mainWindow.addEventListener('click', func);
   }
@@ -37,7 +50,20 @@ export class ViewMainWindow {
   scrollToYPosition(position) {
     scrollTo(0, position);
   }
-/*   scrollToTop() {
-    window.scrollTo(0, 0);
-  } */
+  addScrollListener(func) {
+    // document.addEventListener('scroll', func);
+    document.addEventListener('scroll', func);
+  }
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  renderArrowUp() {
+    this.arrowUp.innerHTML = this.template.getUpBtnTemplate();
+  }
+  getToUpBtnDisplayed() {
+    this.arrowUp.classList.remove('to-up-disabled');
+  }
+  getToUpBtnHidden() {
+    this.arrowUp.classList.add('to-up-disabled');
+  }
 }

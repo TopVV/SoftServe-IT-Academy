@@ -12,9 +12,7 @@
 - посмотреть fluent syntax
 - DocumentFragment 
 - двузначные числа на корзине
-- type-search
 - счетчик животных на корзине после очищения корзины
-- change на search
 <!-- petzone pet4homes -->
 
 

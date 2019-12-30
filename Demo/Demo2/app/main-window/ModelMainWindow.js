@@ -1,23 +1,31 @@
 export class ModelMainWindow {
   constructor() {
-    this.animalBaseData = [];
+    this.speciesSelectedData = [];
+    this.searchResultsData = null;
+    this.currentData = [];
     this.pageSize = 20;
     this.currentPageData = [];
     this.currentPageNumber = 1;
     this.totalPagesNumber;
     this.scrollYPosition = 0;
+    this.activeSpecies = 'all';
+    this.inputData = '';
+    this.animalsInCart = [];
   }
   setNewAnimalBase(newBaseArr) {
-    this.animalBaseData = [...newBaseArr];
-    this.totalPagesNumber = Math.ceil(
-      this.animalBaseData.length / this.pageSize
-    );
+    this.speciesSelectedData = [...newBaseArr];
+    this.setTotalPageN(this.speciesSelectedData);
   }
-  getCustomData(pageNumber = 1) {
+  getCustomData(pageNumber = this.currentPageNumber) {
+    this.currentData =
+      this.searchResultsData !== null
+        ? this.searchResultsData
+        : this.speciesSelectedData;
+    this.setTotalPageN(this.currentData);
     if (pageNumber === -1) {
       pageNumber = this.totalPagesNumber;
     }
-    this.currentPageData = this.animalBaseData.slice(
+    this.currentPageData = this.currentData.slice(
       (pageNumber - 1) * this.pageSize,
       pageNumber * this.pageSize
     );
@@ -44,23 +52,50 @@ export class ModelMainWindow {
     };
   }
   getAnimalById(id) {
-    for (let i = 0; i < this.animalBaseData.length; i++) {
-      if (this.animalBaseData[i].id === id) {
-        return this.animalBaseData[i];
+    for (let i = 0; i < this.speciesSelectedData.length; i++) {
+      if (this.speciesSelectedData[i].id === id) {
+        return this.speciesSelectedData[i];
       }
     }
   }
   setScrollYPosition(position) {
     this.scrollYPosition = position;
   }
-  getScrollYPosition(){
+  getScrollYPosition() {
     return this.scrollYPosition;
+  }
+  setActiveSpecies(species) {
+    this.activeSpecies = species;
+  }
+  getActiveSpecies() {
+    return this.activeSpecies;
+  }
+  setSearchedData(inputData = this.inputData) {
+    if (this.inputData !== inputData) {
+      this.inputData = inputData;
+    }
+    this.searchResultsData = this.speciesSelectedData.filter(
+      obj => obj.breed.toLowerCase().indexOf(inputData) > -1
+    );
+    if (this.searchResultsData.length < 0) {
+      this.searchResultsData.length = null;
+    }
+  }
+  setTotalPageN(dataArr) {
+    this.totalPagesNumber = Math.ceil(dataArr.length / this.pageSize);
+  }
+  setAnimalsInCart(animalsArr) {
+    this.animalsInCart = [...animalsArr];
   }
   prepareObjForTemplate(obj) {
     const objClone = { ...obj };
     objClone.species = this.defineSpeciesIcon(obj.species);
     objClone.gender = this.defineGenderIcon(obj.gender);
     objClone.birth_date = this.msToYearsMonth(obj.birth_date);
+    // debugger
+    objClone.inCartStr = this.animalsInCart.some(
+      cartAnimal => cartAnimal.id === obj.id
+    );
     return objClone;
   }
   msToYearsMonth(ms) {

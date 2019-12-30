@@ -4,7 +4,7 @@ export class ViewCart {
   constructor() {
     this.template = new TemplateCart();
     this.mainWindow = document.querySelector('.main-window');
-    this.cartnWindow = document.querySelector('.cart-list');
+    this.cartWindow = document.querySelector('.cart-list');
     this.cartBtn = document.querySelector('.cart-button');
   }
   renderCartBtn(animalsInCartN) {
@@ -12,14 +12,14 @@ export class ViewCart {
   }
   renderCartWindow(animalsInCartArr) {
     this.mainWindow.classList.add('hidden');
-    this.cartnWindow.innerHTML = this.template.getCartWindow(
+    this.cartsWindow.innerHTML = this.template.getCartWindow(
       this.getAnimalsInCart(animalsInCartArr)
     );
   }
-  addCartBtnListner(func) {
+  addCartBtnListener(func) {
     this.cartBtn.addEventListener('click', func);
   }
-  addCartWindowListner(func) {
+  addCartWindowListener(func) {
     document.querySelector('.cart-window').addEventListener('click', func);
   }
   removeCartWindow() {

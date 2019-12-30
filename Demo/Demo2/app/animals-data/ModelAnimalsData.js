@@ -20,13 +20,13 @@ export class ModelAnimalsData {
         this.notify('animals-data-updated', this.animalBaseData);
       });
   }
-  getSearchedData(input) {
+  /* getSearchedData(input) {
     let foundDataArr = [];
     foundDataArr = this.animalBaseData.filter(
       obj => obj.breed.toLowerCase().indexOf(input) > -1
     );
     return foundDataArr;
-  }
+  } */
   getSpeciesData(species) {
     let speciesDataArr = [];
     if (species === 'all') {

@@ -6,6 +6,7 @@ export class ViewSearch {
         this.template = new TemplateSearch();
         this.searchBtn;
         this.searchInput;
+
     }
     renderSearchFrom(){
         this.searchForm.innerHTML = this.template.getSearchTemplate();
