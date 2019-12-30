@@ -102,7 +102,7 @@ export class ControllerMainWindow {
   handleScroll() {
     const lastKnownScrollPosition = this.view.getScrollYPosition();
     this.model.setScrollYPosition(lastKnownScrollPosition);
-    if (lastKnownScrollPosition > 500) {
+    if (lastKnownScrollPosition > 700) {
       this.view.getToUpBtnDisplayed();
     } else {
       this.view.getToUpBtnHidden();

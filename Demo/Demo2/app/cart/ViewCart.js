@@ -5,19 +5,18 @@ export class ViewCart {
     this.template = new TemplateCart();
     this.mainWindow = document.querySelector('.main-window');
     this.cartWindow = document.querySelector('.cart-list');
-    this.cartBtn = document.querySelector('.cart-button');
   }
   renderCartBtn(animalsInCartN) {
-    this.cartBtn.innerHTML = this.template.getCartBtnTemplate(animalsInCartN);
+    document.querySelector('.cart-button').innerHTML = this.template.getCartBtnTemplate(animalsInCartN);
   }
   renderCartWindow(animalsInCartArr) {
     this.mainWindow.classList.add('hidden');
-    this.cartsWindow.innerHTML = this.template.getCartWindow(
+    this.cartWindow.innerHTML = this.template.getCartWindow(
       this.getAnimalsInCart(animalsInCartArr)
     );
   }
   addCartBtnListener(func) {
-    this.cartBtn.addEventListener('click', func);
+    document.querySelector('.cart-button').addEventListener('click', func);
   }
   addCartWindowListener(func) {
     document.querySelector('.cart-window').addEventListener('click', func);
