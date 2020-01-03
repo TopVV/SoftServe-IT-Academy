@@ -1,23 +1,30 @@
 export class ModelDetails {
   constructor() {
     this.currentAnimal = null;
+    this.animalsInCart = [];
   }
   setCurrentAnimal(animalObj) {
     this.currentAnimal = { ...animalObj };
   }
-  getCurrentAnimal(){
+  getCurrentAnimal() {
     return this.currentAnimal;
   }
   prepareObjForTemplate(obj) {
     const objClone = { ...obj };
     objClone.color = this.getColorsFormated(obj.color);
     objClone.birth_date = this.getBirthDate(obj.birth_date);
+    objClone.inCart = this.animalsInCart.some(
+      objInCart => objInCart.id === obj.id
+    );
     return objClone;
   }
   getBirthDate(ms) {
     return new Date(ms).toLocaleDateString();
   }
   getColorsFormated(str) {
-    return str.split("-").join(", ");
+    return str.split('-').join(', ');
+  }
+  updateAnimalsInCart(animalsArr) {
+    this.animalsInCart = [...animalsArr];
   }
 }

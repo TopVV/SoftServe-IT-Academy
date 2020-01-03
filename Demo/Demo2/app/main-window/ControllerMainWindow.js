@@ -18,19 +18,19 @@ export class ControllerMainWindow {
       'animals-in-cart-update',
       this.updateAnimalsInCart.bind(this)
     );
+    this.subscribe('back-to-main-page', this.getCustomAnimalsPage.bind(this));
   }
   getFirstAnimalsPage(animalBase) {
     this.model.setNewAnimalBase(animalBase);
-    this.getCustomAnimalsPage();
-    this.view.addMainWindowListener(this.handleMainWindowClick.bind(this));
-    this.view.renderArrowUp();
     this.view.addScrollListener(this.handleScroll.bind(this));
+    this.getCustomAnimalsPage();
+    this.view.renderArrowUp();
+    this.view.addMainWindowListener(this.handleMainWindowClick.bind(this));
   }
   getCustomAnimalsPage(pageN) {
     this.getSpeciesRendered();
     this.view.renderAnimalsList(this.model.getCustomData(pageN));
     this.view.renderNavBar(this.model.getNavArr(), this.model.getNavStat());
-    // this.view.scrollToYPosition(this.model.getScrollYPosition());
     this.view.scrollToYPosition(this.model.getScrollYPosition());
   }
   getNewSpeciesSelected(resultsArr) {
@@ -45,63 +45,140 @@ export class ControllerMainWindow {
   setSearchedDataBase(searchRequest) {
     this.model.setSearchedData(searchRequest);
   }
-  updateScrollYPosition() {
+  /* updateScrollYPosition() {
     this.model.setScrollYPosition(this.view.getScrollYPosition());
-  }
+  } */
   getSpeciesRendered() {
     this.view.renderQuickSpecies();
     this.view.renderActiveSpecies(this.model.getActiveSpecies());
   }
   updateAnimalsInCart(animalsArr) {
     this.model.setAnimalsInCart(animalsArr);
-    this.getCustomAnimalsPage();
+    // this.getCustomAnimalsPage();
   }
   updateActiveSpecies(species) {
     this.model.setActiveSpecies(species);
   }
   handleMainWindowClick(e) {
-    // change to switch?
-    if (e.target.closest('.add-to-cart-btn')) {
-      this.notify(
-        'add-to-cart',
-        this.model.getAnimalById(
-          Number(e.target.closest('.card').dataset.card_id)
-        )
-      );
-      this.getCustomAnimalsPage();
-    } else if (e.target.closest('.remove-from-cart-btn')) {
-      // debugger;
-      this.notify(
-        'remove-from-cart',
-        Number(e.target.closest('.card').dataset.card_id)
-      );
-    } else if (e.target.closest('.card')) {
-      this.notify(
-        'show-details',
-        this.model.getAnimalById(
-          Number(e.target.closest('.card').dataset.card_id)
-        )
-      );
-    } else if (e.target.closest('.species-btn')) {
-      this.model.setActiveSpecies(
-        e.target.closest('.species-btn').dataset.quick_species
-      );
-      this.notify(
-        'species-select-new',
-        e.target.closest('.species-btn').dataset.quick_species
-      );
-    } else if (
-      e.target.dataset.page_n !== undefined &&
-      e.target.classList.contains('page-link')
-    ) {
-      this.getCustomAnimalsPage(Number(e.target.dataset.page_n));
-    } else if (e.target.closest('.arrow-up')) {
-      this.view.scrollToTop();
-    }
+    const savedThis = this;
+    const toCartHandler = {
+      typeOfAction: null,
+      conditionCheck(event) {
+        return event.target.closest('.to-cart');
+      },
+      action(savedThis, event) {
+        this.checkTypeOfAction(event);
+        if (this.typeOfAction === 'add') {
+          savedThis.notify(
+            'add-to-cart',
+            savedThis.model.getAnimalById(
+              Number(event.target.closest('.card').dataset.card_id)
+            )
+          );
+          // debugger;
+          event.target.closest('.card').innerHTML = event.target
+            .closest('.card')
+            .innerHTML.replace(
+              /<button.+add-to-cart-btn.+button>/,
+              savedThis.view.renderRemoveFromCartBtn()
+            );
+        } else {
+          savedThis.notify(
+            'remove-from-cart',
+            Number(event.target.closest('.card').dataset.card_id)
+          );
+          event.target.closest('.card').innerHTML = event.target
+            .closest('.card')
+            .innerHTML.replace(
+              /<button.+remove-from-cart-btn.+button>/,
+              savedThis.view.renderAddToCartBtn()
+            );
+        }
+      },
+      checkTypeOfAction(event) {
+        this.typeOfAction = event.target
+          .closest('.to-cart')
+          .classList.contains('add-to-cart-btn')
+          ? 'add'
+          : 'remove';
+      }
+    };
+    const cardDetailsHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.card');
+      },
+      action(savedThis) {
+        savedThis.notify(
+          'show-details',
+          savedThis.model.getAnimalById(
+            Number(e.target.closest('.card').dataset.card_id)
+          )
+        );
+      }
+    };
+    const speciesBtnHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.species-btn');
+      },
+      action(savedThis) {
+        savedThis.model.setActiveSpecies(
+          e.target.closest('.species-btn').dataset.quick_species
+        );
+        savedThis.notify(
+          'species-select-new',
+          e.target.closest('.species-btn').dataset.quick_species
+        );
+      }
+    };
+    const arrowUpHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.arrow-up');
+      },
+      action(savedThis) {
+        savedThis.view.scrollToTop();
+      }
+    };
+    const navBarHandler = {
+      conditionCheck(event) {
+        return (
+          event.target.dataset.page_n !== undefined &&
+          event.target.classList.contains('page-link')
+        );
+      },
+      action(savedThis) {
+        savedThis.getCustomAnimalsPage(Number(e.target.dataset.page_n));
+      }
+    };
+    /* const sortByPriceHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.sort-by-price');
+      },
+      action(savedThis, event) {
+
+      }
+    }; */
+
+    const handlersArr = [
+      toCartHandler,
+      cardDetailsHandler,
+      speciesBtnHandler,
+      arrowUpHandler,
+      navBarHandler
+    ];
+
+    handlersArr.some(handler => {
+      if (handler.conditionCheck(e)) {
+        handler.action(savedThis, e);
+        return true;
+      }
+      return false;
+    });
   }
   handleScroll() {
     const lastKnownScrollPosition = this.view.getScrollYPosition();
-    this.model.setScrollYPosition(lastKnownScrollPosition);
+    if (lastKnownScrollPosition) {
+      this.model.setScrollYPosition(lastKnownScrollPosition);
+    }
     if (lastKnownScrollPosition > 700) {
       this.view.getToUpBtnDisplayed();
     } else {

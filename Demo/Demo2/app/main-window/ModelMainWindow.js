@@ -92,7 +92,6 @@ export class ModelMainWindow {
     objClone.species = this.defineSpeciesIcon(obj.species);
     objClone.gender = this.defineGenderIcon(obj.gender);
     objClone.birth_date = this.msToYearsMonth(obj.birth_date);
-    // debugger
     objClone.inCartStr = this.animalsInCart.some(
       cartAnimal => cartAnimal.id === obj.id
     );

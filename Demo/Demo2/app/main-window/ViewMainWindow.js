@@ -45,7 +45,9 @@ export class ViewMainWindow {
     this.mainWindow.addEventListener('click', func);
   }
   getScrollYPosition() {
-    return window.scrollY;
+    if (!this.mainWindow.classList.contains('hidden')) {
+      return window.scrollY;
+    }
   }
   scrollToYPosition(position) {
     scrollTo(0, position);
@@ -65,5 +67,11 @@ export class ViewMainWindow {
   }
   getToUpBtnHidden() {
     this.arrowUp.classList.add('to-up-disabled');
+  }
+  renderAddToCartBtn() {
+    return this.template.getAddToCartBtnTemplate();
+  }
+  renderRemoveFromCartBtn() {
+    return this.template.getRemoveFromCartBtnTemplate();
   }
 }

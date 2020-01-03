@@ -12,7 +12,7 @@ export class TemplateMainWindow {
   }) {
     return `<div class="card text-center m-3 border_round animated pulse faster" data-card_id=${id}>
         <img class="img-fluid card-img-top border_round" src=${image} alt='Animal pic'>
-        <h4 class="font-weight-bold capitalized-sentence">${breed}</h4>
+        <h4 class="font-weight-bold text-capitalize">${breed}</h4>
         <div class="card-body d-flex flex-row justify-content-around p-2">
             <div class="animal-icons text-secondary">
                 <span class="species__icon">
@@ -31,22 +31,22 @@ export class TemplateMainWindow {
                 </div>
             </div>
         </div>
-        <div class="card-footer d-flex flex-row justify-content-between p-3">
+        <div class="card-footer d-flex flex-row justify-content-around p-3">
             ${
               inCartStr
                 ? this.getRemoveFromCartBtnTemplate()
                 : this.getAddToCartBtnTemplate()
             }
-            <button type="button" class="details-btn btn btn-info btn__border_round btn-sm">Show details</button>
+            <button type="button" class="details-btn btn btn-info btn__border_round text-uppercase">Details</button>
         </div>
     </div>`;
   }
   getAddToCartBtnTemplate() {
-    return `<button type="button" class="add-to-cart-btn btn btn-success btn__border_round btn-sm">Add to cart <i
+    return `<button type="button" class="add-to-cart-btn to-cart btn btn-success btn__border_round text-uppercase">Add <i
     class="fas fa-cart-plus"></i></button>`;
   }
   getRemoveFromCartBtnTemplate() {
-    return `<button type="button" class="remove-from-cart-btn btn btn-warning btn__border_round btn-sm">Remove from cart <i
+    return `<button type="button" class="remove-from-cart-btn to-cart btn btn-warning btn__border_round text-uppercase">Remove <i
     class="fas fa-minus-circle"></i></button>`;
   }
   getNavTemplate(navArr) {

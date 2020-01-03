@@ -8,6 +8,10 @@ export class ControllerDetails {
     this.subscribe = subscribe;
     this.notify = notify;
     subscribe('show-details', this.showDetails.bind(this));
+    this.subscribe(
+      'animals-in-cart-update',
+      this.updateAnimalsInCart.bind(this)
+    );
   }
   showDetails(objInfo) {
     this.model.setCurrentAnimal(objInfo);
@@ -17,14 +21,59 @@ export class ControllerDetails {
     );
   }
   handleDetailsWindowClick(e) {
-    if (e.target.closest('.add-to-cart-btn')) {
-      this.notify('add-to-cart', this.model.getCurrentAnimal());
-    } else if (
-      e.target.closest('.close-btn') ||
-      !e.target.closest('.detailed-card')
-    ) {
-      document.querySelector('.details-window').remove();
-      document.querySelector('.main-window').classList.remove('hidden');
-    }
+    const savedThis = this;
+    const toCartHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.to-cart');
+      },
+      action(savedThis, event) {
+        const type = this.checkTypeOfAction(event);
+        if (type === 'add') {
+          savedThis.notify('add-to-cart', savedThis.model.getCurrentAnimal());
+          savedThis.view.renderRemoveFromCartBtn(
+            savedThis.model.getCurrentAnimal().id
+          );
+        } else if (type === 'remove') {
+          savedThis.notify(
+            'remove-from-cart',
+            savedThis.model.getCurrentAnimal().id
+          );
+          savedThis.view.renderAddToCartBtn(
+            savedThis.model.getCurrentAnimal().id
+          );
+        }
+      },
+      checkTypeOfAction(event) {
+        return event.target
+          .closest('.to-cart')
+          .classList.contains('add-to-cart-btn')
+          ? 'add'
+          : 'remove';
+      }
+    };
+    const closeBtnHandler = {
+      conditionCheck(event) {
+        return (
+          event.target.closest('.close-btn') ||
+          !event.target.closest('.detailed-card')
+        );
+      },
+      action(savedThis, event) {
+        document.querySelector('.details-window').remove();
+        document.querySelector('.main-window').classList.remove('hidden');
+        savedThis.notify('back-to-main-page');
+      }
+    };
+    const handlersArr = [toCartHandler, closeBtnHandler];
+    handlersArr.some(handler => {
+      if (handler.conditionCheck(e)) {
+        handler.action(savedThis, e);
+        return true;
+      }
+      return false;
+    });
+  }
+  updateAnimalsInCart(animalsArr) {
+    this.model.updateAnimalsInCart(animalsArr);
   }
 }

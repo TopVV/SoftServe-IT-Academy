@@ -6,41 +6,145 @@ export class ControllerCart {
     this.model = new ModelCart(subscribe, unsubscribe, notify);
     this.view = new ViewCart();
     this.subscribe = subscribe;
+    this.notify = notify;
     this.getCartBtn();
     this.subscribe('add-to-cart', this.getNewCartInfo.bind(this));
     this.subscribe('remove-from-cart', this.deleteItemFromCart.bind(this));
+    // this.subscribe('check-if-in-cart', this.checkIfInCart.bind(this));
   }
   getCartBtn() {
-    this.view.renderCartBtn(this.model.getCartAnimalsQuantity());
+    this.getCartBtnUpdated();
     this.view.addCartBtnListener(this.handleCartBtnClick.bind(this));
+  }
+  getCartBtnUpdated() {
+    this.view.renderCartBtn(this.model.getCartAnimalsQuantity());
   }
   getNewCartInfo(animalObj) {
     this.model.addAnimalToCart(animalObj);
     this.getCartBtn();
   }
   getCartWindow() {
-    this.view.renderCartWindow(this.model.getAnimalsInCart());
+    this.view.renderCartWindow();
+    this.getCart();
     this.view.addCartWindowListener(this.handleCartWindowClick.bind(this));
+  }
+  getCart() {
+    this.view.renderCart(this.model.getAnimalsInCart());
   }
   handleCartBtnClick() {
     this.getCartWindow();
   }
-  deleteItemFromCart(animalId){
+  deleteItemFromCart(animalId) {
     this.model.deleteAnimalFromCart(animalId);
+    this.getCartBtnUpdated();
+  }
+  clearAnimalsInCart() {
+    this.model.clearAnimalsInCart();
+    this.getCartBtnUpdated();
   }
   handleCartWindowClick(e) {
-    if (e.target.closest('.cart-submit')) {
-      console.log('Payment submitted!');
-    } else if (e.target.closest('.clear-btn')) {
-      this.view.removeCartWindow();
-      this.model.clearAnimalsInCart();
-      this.getCartWindow(this.model.getAnimalsInCart());
-    } else if (
-      e.target.closest('.close-btn') ||
-      !e.target.closest('.cart-area')
-    ) {
-      this.view.removeCartWindow();
-      document.querySelector('.main-window').classList.remove('hidden');
-    }
+    const savedThis = this;
+    const toOrderForm = {
+      conditionCheck(event) {
+        return event.target.closest('.to-order-form');
+      },
+      action(savedThis) {
+        if (savedThis.model.getCartAnimalsQuantity()) {
+          savedThis.view.renderOrderForm();
+        }
+      }
+    };
+    const removeSingleAnimal = {
+      conditionCheck(event) {
+        return event.target.closest('.remove-from-cart');
+      },
+      action(savedThis, event) {
+        savedThis.deleteItemFromCart(
+          Number(event.target.closest('.animal-in-cart').dataset.card_id)
+        );
+        savedThis.getCart();
+      }
+    };
+    const clearAllHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.clear-btn');
+      },
+      action(savedThis) {
+        savedThis.clearAnimalsInCart();
+        savedThis.getCart();
+      }
+    };
+    const removeCartWindowHandler = {
+      conditionCheck(event) {
+        return (
+          event.target.closest('.close-btn') || !e.target.closest('.cart-area')
+        );
+      },
+      action(savedThis) {
+        savedThis.view.removeCartWindow();
+        document.querySelector('.main-window').classList.remove('hidden');
+        savedThis.notify('back-to-main-page');
+      }
+    };
+    const submitOrderBtnHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.submit-order-btn');
+      },
+      action(savedThis, event) {
+        event.preventDefault();
+        const buyerInformation = {};
+        const inputIdsArr = [
+          'firstName',
+          'lastName',
+          'phone',
+          'address',
+          'email',
+          'notes'
+        ];
+        inputIdsArr.forEach(inputId => {
+          buyerInformation[inputId] = document.getElementById(inputId).value;
+        });
+        const validationResponse = savedThis.model.validateInput(
+          buyerInformation
+        );
+        if (validationResponse === 'valid') {
+          savedThis.view.renderOrderComplete();
+          savedThis.model.sendMessage(savedThis.model.getMessageForBot());
+          savedThis.clearAnimalsInCart();
+        } else {
+          savedThis.view.renderErrorInput(inputIdsArr, validationResponse);
+          // alert('fuck');
+        }
+
+        console.log(buyerInformation);
+        // add action here
+      }
+    };
+    const backToCartBtnHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.back-to-cart');
+      },
+      action() {
+        savedThis.getCart();
+      }
+    };
+    const handlersArr = [
+      toOrderForm,
+      removeSingleAnimal,
+      clearAllHandler,
+      removeCartWindowHandler,
+      submitOrderBtnHandler,
+      backToCartBtnHandler
+    ];
+    handlersArr.some(handler => {
+      if (handler.conditionCheck(e)) {
+        handler.action(savedThis, e);
+        return true;
+      }
+      return false;
+    });
   }
+  /*   checkIfInCart(id) {
+    return this.model.checkIfInCart(id);
+  } */
 }
