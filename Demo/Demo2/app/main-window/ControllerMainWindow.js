@@ -8,7 +8,6 @@ export class ControllerMainWindow {
     this.subscribe = subscribe;
     this.notify = notify;
     this.subscribe('animals-data-updated', this.getFirstAnimalsPage.bind(this));
-    // this.subscribe('new-search-result', this.getSearchedPage.bind(this));
     this.subscribe('new-search-request', this.getSearchedPage.bind(this));
     this.subscribe(
       'species-select-result',
@@ -31,6 +30,7 @@ export class ControllerMainWindow {
     this.getSpeciesRendered();
     this.view.renderAnimalsList(this.model.getCustomData(pageN));
     this.view.renderNavBar(this.model.getNavArr(), this.model.getNavStat());
+    this.view.renderSortMenu();
     this.view.scrollToYPosition(this.model.getScrollYPosition());
   }
   getNewSpeciesSelected(resultsArr) {
@@ -45,16 +45,12 @@ export class ControllerMainWindow {
   setSearchedDataBase(searchRequest) {
     this.model.setSearchedData(searchRequest);
   }
-  /* updateScrollYPosition() {
-    this.model.setScrollYPosition(this.view.getScrollYPosition());
-  } */
   getSpeciesRendered() {
     this.view.renderQuickSpecies();
     this.view.renderActiveSpecies(this.model.getActiveSpecies());
   }
   updateAnimalsInCart(animalsArr) {
     this.model.setAnimalsInCart(animalsArr);
-    // this.getCustomAnimalsPage();
   }
   updateActiveSpecies(species) {
     this.model.setActiveSpecies(species);
@@ -149,21 +145,25 @@ export class ControllerMainWindow {
         savedThis.getCustomAnimalsPage(Number(e.target.dataset.page_n));
       }
     };
-    /* const sortByPriceHandler = {
+    const sortBtnHandler = {
       conditionCheck(event) {
-        return event.target.closest('.sort-by-price');
+        return event.target.closest('.dropdown-item');
       },
       action(savedThis, event) {
-
+        savedThis.model.getAnimalsSorted(
+          event.target.closest('.dropdown-item').dataset.sortType
+        );
+        savedThis.getCustomAnimalsPage();
       }
-    }; */
+    };
 
     const handlersArr = [
       toCartHandler,
       cardDetailsHandler,
       speciesBtnHandler,
       arrowUpHandler,
-      navBarHandler
+      navBarHandler,
+      sortBtnHandler
     ];
 
     handlersArr.some(handler => {

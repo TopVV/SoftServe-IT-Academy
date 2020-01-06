@@ -11,10 +11,13 @@ export class ModelMainWindow {
     this.activeSpecies = 'all';
     this.inputData = '';
     this.animalsInCart = [];
+    this.sortBy = null;
   }
   setNewAnimalBase(newBaseArr) {
     this.speciesSelectedData = [...newBaseArr];
     this.setTotalPageN(this.speciesSelectedData);
+    this.currentPageNumber = 1;
+    this.scrollYPosition = 0;
   }
   getCustomData(pageNumber = this.currentPageNumber) {
     this.currentData =
@@ -74,11 +77,12 @@ export class ModelMainWindow {
     if (this.inputData !== inputData) {
       this.inputData = inputData;
     }
-    this.searchResultsData = this.speciesSelectedData.filter(
-      obj => obj.breed.toLowerCase().indexOf(inputData) > -1
-    );
-    if (this.searchResultsData.length < 0) {
-      this.searchResultsData.length = null;
+    if (this.inputData.length <= 0) {
+      this.searchResultsData = null;
+    } else {
+      this.searchResultsData = this.speciesSelectedData.filter(
+        obj => obj.breed.toLowerCase().indexOf(inputData) > -1
+      );
     }
   }
   setTotalPageN(dataArr) {
@@ -86,6 +90,41 @@ export class ModelMainWindow {
   }
   setAnimalsInCart(animalsArr) {
     this.animalsInCart = [...animalsArr];
+  }
+  getAnimalsSorted(sortType) {
+    this.sortBy = sortType;
+    let sortFunction;
+    const sortFuncObject = {
+      priceDown(a, b) {
+        return b.price - a.price;
+      },
+      priceUp(a, b) {
+        return a.price - b.price;
+      },
+      ageDown(a, b) {
+        return a.birth_date - b.birth_date;
+      },
+      ageUp(a, b) {
+        return b.birth_date - a.birth_date;
+      },
+      none(a, b) {
+        return Math.random() - 0.5;
+      }
+    };
+
+    if (sortType === 'price-down' || sortType === 'price-up') {
+      sortFunction =
+        sortType === 'price-down'
+          ? sortFuncObject.priceDown
+          : sortFuncObject.priceUp;
+    } else if (sortType === 'age-down' || sortType === 'age-up') {
+      sortFunction =
+        sortType === 'age-down' ? sortFuncObject.ageDown : sortFuncObject.ageUp;
+    } else {
+      sortFunction = sortFuncObject.none;
+    }
+    this.speciesSelectedData.sort(sortFunction);
+    this.currentPageNumber = 1;
   }
   prepareObjForTemplate(obj) {
     const objClone = { ...obj };
@@ -135,19 +174,21 @@ export class ModelMainWindow {
     return result;
   }
   defineSpeciesIcon(species) {
-    const cat = `<i class="fas fa-cat"></i>`;
-    const dog = `<i class="fas fa-dog"></i>`;
-    const bird = `<i class="fas fa-dove"></i>`;
-    const fish = `<i class="fas fa-fish"></i>`;
+    const speciesIcons = {
+      cat: `<i class="fas fa-cat"></i>`,
+      dog: `<i class="fas fa-dog"></i>`,
+      bird: `<i class="fas fa-dove"></i>`,
+      fish: `<i class="fas fa-fish"></i>`,
+    }
     let result;
     if (species.toLowerCase() === 'cat') {
-      result = cat;
+      result = speciesIcons.cat;
     } else if (species.toLowerCase() === 'dog') {
-      result = dog;
+      result = speciesIcons.dog;
     } else if (species.toLowerCase() === 'bird') {
-      result = bird;
+      result = speciesIcons.bird;
     } else if (species.toLowerCase() === 'fish') {
-      result = fish;
+      result = speciesIcons.fish;
     }
     return result;
   }

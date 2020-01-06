@@ -7,10 +7,17 @@ export class ControllerCart {
     this.view = new ViewCart();
     this.subscribe = subscribe;
     this.notify = notify;
+    this.getLocalStorageCart();
     this.getCartBtn();
     this.subscribe('add-to-cart', this.getNewCartInfo.bind(this));
     this.subscribe('remove-from-cart', this.deleteItemFromCart.bind(this));
-    // this.subscribe('check-if-in-cart', this.checkIfInCart.bind(this));
+  }
+  getLocalStorageCart() {
+    if (localStorage.getItem('savedCart')) {
+      this.model.setAnimalsInCart(
+        JSON.parse(localStorage.getItem('savedCart'))
+      );
+    }
   }
   getCartBtn() {
     this.getCartBtnUpdated();
@@ -29,7 +36,10 @@ export class ControllerCart {
     this.view.addCartWindowListener(this.handleCartWindowClick.bind(this));
   }
   getCart() {
-    this.view.renderCart(this.model.getAnimalsInCart());
+    this.view.renderCart(
+      this.model.getAnimalsInCart(),
+      this.model.getTotalCartSum()
+    );
   }
   handleCartBtnClick() {
     this.getCartWindow();
@@ -113,11 +123,7 @@ export class ControllerCart {
           savedThis.clearAnimalsInCart();
         } else {
           savedThis.view.renderErrorInput(inputIdsArr, validationResponse);
-          // alert('fuck');
         }
-
-        console.log(buyerInformation);
-        // add action here
       }
     };
     const backToCartBtnHandler = {

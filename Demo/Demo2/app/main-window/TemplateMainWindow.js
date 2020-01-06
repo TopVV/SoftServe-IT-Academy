@@ -50,13 +50,16 @@ export class TemplateMainWindow {
     class="fas fa-minus-circle"></i></button>`;
   }
   getNavTemplate(navArr) {
-    let numbersStr = '';
-    for (let i = 0; i < navArr.length; i++) {
-      numbersStr += `<li class="page-item"><a href="#" class="page-link" data-page_n=${navArr[i]}>${navArr[i]}</a></li>`;
-    }
+    const stringWithNumbers = navArr
+      .map(
+        n =>
+          `<li class="page-item"><a href="#" class="page-link" data-page_n=${n}>${n}</a></li>`
+      )
+      .join('');
+
     return `<ul class="pagination justify-content-center">
         <li class="page-item"><a href="#" class="page-link" data-page_n='1'><<</a></li>
-        ${numbersStr}
+        ${stringWithNumbers}
         <li class="page-item"><a href="#" class="page-link" data-page_n='-1'>>></a></li>
         </ul>`;
   }
@@ -104,6 +107,60 @@ export class TemplateMainWindow {
   getUpBtnTemplate() {
     return `<button><i class="far fa-hand-point-up"></i></button>
     <div class="arrow-up__text text-center">To the top</div>`;
+  }
+  getSortMenuTemplate() {
+    return `<button
+    type="button"
+    class="btn btn-info dropdown-toggle"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    Sort by:
+  </button>
+  <div class="dropdown-menu sort-menu">
+    <button
+      class="dropdown-item d-flex flex-row align-self-center"
+      type="button"
+      data-sort-type="none"
+    >
+      None
+    </button>
+    <button
+      class="dropdown-item d-flex flex-row align-self-center"
+      type="button"
+      data-sort-type="price-down"
+    >
+      <span>Price</span><i class="fas fa-sort-down ml-1"></i>
+    </button>
+    <button
+      class="dropdown-item d-flex flex-row align-self-center"
+      type="button"
+      data-sort-type="price-up"
+    >
+      <span>Price</span>
+      <i class="fas fa-sort-up ml-1"></i>
+    </button>
+    <button
+      class="dropdown-item d-flex flex-row align-self-center"
+      type="button"
+      data-sort-type="age-down"
+    >
+      <span>Age</span> <i class="fas fa-sort-down ml-1"></i>
+    </button>
+    <button
+      class="dropdown-item d-flex flex-row align-self-center"
+      type="button"
+      data-sort-type="age-up"
+    >
+      <span>Age</span> <i class="fas fa-sort-up ml-1"></i>
+    </button>
+  </div>`;
+  }
+  getNoResultsTemplate() {
+    return `<div class="no-data-found alert alert-info col-8 text-center mx-auto my-6 rounded-pill" role="alert">
+    <h4 class="alert-heading">No animals found</h4>
+  </div>`;
   }
 }
 

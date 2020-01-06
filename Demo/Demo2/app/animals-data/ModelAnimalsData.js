@@ -6,27 +6,19 @@ export class ModelAnimalsData {
       'https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/general-files/animals_ru.json';
     this.notify = notify;
     this.animalBaseData = [];
-    this.getAnimalBaseData();
   }
-  getAnimalBaseData() {
+  getAnimalBaseDataDownloaded() {
     fetch(this.enLink)
       .then(resp => resp.json())
       .then(respBody => {
         this.animalBaseData = [...respBody];
-        this.totalPagesNumber = Math.ceil(
-          this.animalBaseData.length / this.pageSize
-        );
-        this.currentPageData = this.animalBaseData.slice(0, this.pageSize);
         this.notify('animals-data-updated', this.animalBaseData);
+        localStorage.setItem(
+          'savedAnimalsBase',
+          JSON.stringify(this.getCurrentAnimalBase())
+        );
       });
   }
-  /* getSearchedData(input) {
-    let foundDataArr = [];
-    foundDataArr = this.animalBaseData.filter(
-      obj => obj.breed.toLowerCase().indexOf(input) > -1
-    );
-    return foundDataArr;
-  } */
   getSpeciesData(species) {
     let speciesDataArr = [];
     if (species === 'all') {
@@ -37,5 +29,12 @@ export class ModelAnimalsData {
       );
     }
     return speciesDataArr;
+  }
+  getCurrentAnimalBase() {
+    return this.animalBaseData;
+  }
+  setCurrentAnimalBase(arr) {
+    this.animalBaseData = [...arr];
+    this.notify('animals-data-updated', this.animalBaseData);
   }
 }

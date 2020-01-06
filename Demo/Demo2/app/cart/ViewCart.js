@@ -16,14 +16,11 @@ export class ViewCart {
     this.mainWindow.classList.add('hidden');
     this.cartList.innerHTML = this.template.getCartWindow();
   }
-  renderCart(animalsInCartArr) {
+  renderCart(animalsInCartArr, totalSum) {
     document.querySelector('.cart-window').innerHTML = this.template.getCart(
-      this.getAnimalsInCart(animalsInCartArr)
+      this.getAnimalsInCart(animalsInCartArr, totalSum)
     );
   }
-  /* renderNumberInCart(number){
-    document.querySelector('.cart-button').innerHTML
-  } */
   addCartBtnListener(func) {
     document.querySelector('.cart-button').addEventListener('click', func);
   }
@@ -33,11 +30,14 @@ export class ViewCart {
   removeCartWindow() {
     document.querySelector('.cart-window').remove();
   }
-  getAnimalsInCart(animalsInCart) {
+  getAnimalsInCart(animalsInCart, totalSum) {
     return animalsInCart.length > 0
       ? animalsInCart
-          .map(animalObj => this.template.getAnimalRowTemplate(animalObj))
-          .join('')
+          .map((animalObj, i) =>
+            this.template.getAnimalRowTemplate(animalObj, i + 1)
+          )
+          .join('') +
+          this.template.getCartSumTemplate(animalsInCart.length, totalSum)
       : this.template.getEmptyCartTemplate();
   }
   renderOrderForm() {

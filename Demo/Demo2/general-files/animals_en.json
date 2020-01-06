@@ -1211,15 +1211,15 @@
   {
     "id": 213,
     "species": "dog",
-    "price": 5250,
-    "gender": "female",
-    "weight": 11,
+    "price": 4350,
+    "gender": "male",
+    "weight": 7,
     "birth_date": 1515621600000,
-    "color": "black",
-    "breed": "Poodle",
-    "image": "https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/img/animals_pics/id212.jpg",
-    "is_sterile": true,
-    "hair": "medium"
+    "color": "white",
+    "breed": "Pug",
+    "image": "https://topvv.github.io/SoftServe-IT-Academy/Demo/Demo2/img/animals_pics/id213.jpg",
+    "is_sterile": false,
+    "hair": "short"
   },
   {
     "id": 214,

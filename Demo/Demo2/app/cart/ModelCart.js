@@ -4,24 +4,35 @@ export class ModelCart {
     this.notify = notify;
     this.apiKey = '957348871:AAFs0H3FQZ4t3mRk7UiW37IhbmwIFeG5gU0';
     this.url = `https://api.telegram.org/bot${this.apiKey}`;
-    // https://api.telegram.org/bot<token>/METHOD_NAME
     this.myId = 312944163;
     this.groupChatId = -377489566;
     this.orderInformationObj = null;
-    // this.sendMessage();
   }
   addAnimalToCart(animalObj) {
     if (this.animalsInCartArr.every(obj => obj.id !== animalObj.id)) {
       const animalObjClone = { ...animalObj };
       this.animalsInCartArr.push(animalObjClone);
+      this.setLocalStorageCopy();
       this.notify('animals-in-cart-update', this.animalsInCartArr);
     }
   }
   getAnimalsInCart() {
     return this.animalsInCartArr;
   }
+  setAnimalsInCart(arr) {
+    this.animalsInCartArr = [...arr];
+    this.notify('animals-in-cart-update', this.animalsInCartArr);
+  }
+  getTotalCartSum() {
+    return (
+      Math.round(
+        this.animalsInCartArr.reduce((acc, cur) => acc + cur.price, 0) * 100
+      ) / 100
+    );
+  }
   clearAnimalsInCart() {
     this.animalsInCartArr.length = 0;
+    this.setLocalStorageCopy();
     this.notify('animals-in-cart-update', this.animalsInCartArr);
   }
   getCartAnimalsQuantity() {
@@ -31,14 +42,17 @@ export class ModelCart {
     this.animalsInCartArr = this.animalsInCartArr.filter(
       animalObj => animalObj.id !== animalToDeleteId
     );
+    this.setLocalStorageCopy();
     this.notify('animals-in-cart-update', this.animalsInCartArr);
   }
   checkIfInCart(id) {
     return this.animalsInCartArr.some(obj => obj.id === id);
   }
-  sendMessage(message = 'test', id = this.myId, parseMode = 'HTML') {
+  sendMessage(message = 'test', id = this.myId, parseMode = 'MarkDown') {
     fetch(
-      `${this.url}/sendMessage?chat_id=${id}&text=${message}&parse_mode=${parseMode}`
+      `${this.url}/sendMessage?chat_id=${id}&text=${encodeURIComponent(
+        message
+      )}&parse_mode=${parseMode}`
     );
   }
   validateInput(inputObj) {
@@ -79,13 +93,22 @@ export class ModelCart {
     }
     return result;
   }
-  getMessageForBot(orderObj = this.orderInformationObj) {
-    return JSON.stringify(orderObj);
+  getMessageForBot(
+    orderObj = this.orderInformationObj,
+    cartInfo = this.animalsInCartArr
+  ) {
+    const animalsIds =
+      'Animals IDs: ' + cartInfo.map(animal => animal.id).join(', ');
+    const buyerInfo = `
+    First Name: ${orderObj.firstName}
+    Last Name: ${orderObj.lastName}
+    Phone Number: ${orderObj.phone}
+    Address: ${orderObj.address}
+    Email: ${orderObj.email}
+    Notes: ${orderObj.notes}`;
+    return animalsIds + buyerInfo;
   }
-  /*return  `firstName: ${orderObj.firstName}
-  lastName: ${orderObj.lastName}
-  phone: ${orderObj.phone}
-  address: ${orderObj.address}
-  email: ${orderObj.email}
-  notes: ${orderObj.notes}` */
+  setLocalStorageCopy(arr = this.animalsInCartArr) {
+    localStorage.setItem('savedCart', JSON.stringify(this.animalsInCartArr));
+  }
 }
