@@ -11,13 +11,13 @@ export class ModelMainWindow {
     this.activeSpecies = 'all';
     this.inputData = '';
     this.animalsInCart = [];
-    this.sortBy = null;
+    this.sortBy = 'none';
   }
   setNewAnimalBase(newBaseArr) {
     this.speciesSelectedData = [...newBaseArr];
     this.setTotalPageN(this.speciesSelectedData);
     this.currentPageNumber = 1;
-    this.scrollYPosition = 0;
+    this.sortBy = 'none';
   }
   getCustomData(pageNumber = this.currentPageNumber) {
     this.currentData =
@@ -84,8 +84,9 @@ export class ModelMainWindow {
         obj => obj.breed.toLowerCase().indexOf(inputData) > -1
       );
     }
+    this.setTotalPageN();
   }
-  setTotalPageN(dataArr) {
+  setTotalPageN(dataArr = this.currentData) {
     this.totalPagesNumber = Math.ceil(dataArr.length / this.pageSize);
   }
   setAnimalsInCart(animalsArr) {
@@ -93,7 +94,6 @@ export class ModelMainWindow {
   }
   getAnimalsSorted(sortType) {
     this.sortBy = sortType;
-    let sortFunction;
     const sortFuncObject = {
       priceDown(a, b) {
         return b.price - a.price;
@@ -111,18 +111,7 @@ export class ModelMainWindow {
         return Math.random() - 0.5;
       }
     };
-
-    if (sortType === 'price-down' || sortType === 'price-up') {
-      sortFunction =
-        sortType === 'price-down'
-          ? sortFuncObject.priceDown
-          : sortFuncObject.priceUp;
-    } else if (sortType === 'age-down' || sortType === 'age-up') {
-      sortFunction =
-        sortType === 'age-down' ? sortFuncObject.ageDown : sortFuncObject.ageUp;
-    } else {
-      sortFunction = sortFuncObject.none;
-    }
+    let sortFunction = sortFuncObject[sortType];
     this.speciesSelectedData.sort(sortFunction);
     this.currentPageNumber = 1;
   }
@@ -163,33 +152,43 @@ export class ModelMainWindow {
     return ageStr;
   }
   defineGenderIcon(gender) {
-    const male = '<i class="fas fa-mars"></i>';
-    const female = '<i class="fas fa-venus"></i>';
-    let result;
-    if (gender.toLowerCase() === 'male') {
-      result = male;
-    } else if (gender.toLowerCase() === 'female') {
-      result = female;
-    }
-    return result;
+    const genderIcons = {
+      male: '<i class="fas fa-mars"></i>',
+      female: '<i class="fas fa-venus"></i>'
+    };
+    return genderIcons[gender];
   }
   defineSpeciesIcon(species) {
     const speciesIcons = {
       cat: `<i class="fas fa-cat"></i>`,
       dog: `<i class="fas fa-dog"></i>`,
       bird: `<i class="fas fa-dove"></i>`,
-      fish: `<i class="fas fa-fish"></i>`,
+      fish: `<i class="fas fa-fish"></i>`
+    };
+    return speciesIcons[species];
+  }
+  setPageSize(n) {
+    if (n > this.currentData.length) {
+      this.pageSize = this.currentData.length;
+    } else {
+      this.pageSize = n;
     }
-    let result;
-    if (species.toLowerCase() === 'cat') {
-      result = speciesIcons.cat;
-    } else if (species.toLowerCase() === 'dog') {
-      result = speciesIcons.dog;
-    } else if (species.toLowerCase() === 'bird') {
-      result = speciesIcons.bird;
-    } else if (species.toLowerCase() === 'fish') {
-      result = speciesIcons.fish;
+    this.setTotalPageN(this.currentData);
+    this.currentPageNumber = 1;
+  }
+  getPageSize() {
+    return Math.round(this.pageSize / 20) * 20;
+  }
+  getSortType() {
+    return this.sortBy;
+  }
+  setCurrentPageNumber(n) {
+    if (n < 0) {
+      this.currentPageNumber = 1;
+    } else if (n > this.totalPagesNumber) {
+      this.currentPageNumber = this.totalPagesNumber;
+    } else {
+      this.currentPageNumber = n;
     }
-    return result;
   }
 }

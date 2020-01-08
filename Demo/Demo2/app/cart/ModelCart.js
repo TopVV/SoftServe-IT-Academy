@@ -1,5 +1,5 @@
 export class ModelCart {
-  constructor(subscribe, unsubscribe, notify) {
+  constructor(notify) {
     this.animalsInCartArr = [];
     this.notify = notify;
     this.apiKey = '957348871:AAFs0H3FQZ4t3mRk7UiW37IhbmwIFeG5gU0';
@@ -97,18 +97,27 @@ export class ModelCart {
     orderObj = this.orderInformationObj,
     cartInfo = this.animalsInCartArr
   ) {
-    const animalsIds =
-      'Animals IDs: ' + cartInfo.map(animal => animal.id).join(', ');
+    const animalsIds = `
+    Cart Info:
+      Animals IDs: ${cartInfo.map(animal => animal.id).join(', ')}
+      Total price: ${this.getTotalCartSum()}`;
     const buyerInfo = `
-    First Name: ${orderObj.firstName}
-    Last Name: ${orderObj.lastName}
-    Phone Number: ${orderObj.phone}
-    Address: ${orderObj.address}
-    Email: ${orderObj.email}
-    Notes: ${orderObj.notes}`;
-    return animalsIds + buyerInfo;
+    Customer Info:
+      First Name: ${orderObj.firstName}
+      Last Name: ${orderObj.lastName}
+      Phone Number: ${orderObj.phone}
+      Address: ${orderObj.address}
+      Email: ${orderObj.email}
+      Notes: ${orderObj.notes}`;
+    return `New order:
+${animalsIds}
+    
+${buyerInfo}`;
   }
   setLocalStorageCopy(arr = this.animalsInCartArr) {
     localStorage.setItem('savedCart', JSON.stringify(this.animalsInCartArr));
+  }
+  getGroupChatId() {
+    return this.groupChatId;
   }
 }

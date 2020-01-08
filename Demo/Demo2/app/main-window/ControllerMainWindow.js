@@ -2,12 +2,13 @@ import { ModelMainWindow } from './ModelMainWindow.js';
 import { ViewMainWindow } from './ViewMainWindow.js';
 
 export class ControllerMainWindow {
-  constructor({ subscribe, unsubscribe, notify }) {
+  constructor({ subscribe, notify }) {
     this.model = new ModelMainWindow();
     this.view = new ViewMainWindow();
     this.subscribe = subscribe;
     this.notify = notify;
-    this.subscribe('animals-data-updated', this.getFirstAnimalsPage.bind(this));
+    this.subscribe('first-page-data', this.getFirstAnimalsPage.bind(this));
+    this.subscribe('animals-data-updated', this.setNewAnimalBase.bind(this));
     this.subscribe('new-search-request', this.getSearchedPage.bind(this));
     this.subscribe(
       'species-select-result',
@@ -26,11 +27,20 @@ export class ControllerMainWindow {
     this.view.renderArrowUp();
     this.view.addMainWindowListener(this.handleMainWindowClick.bind(this));
   }
+  setNewAnimalBase(newAnimalBase) {
+    this.model.setNewAnimalBase(newAnimalBase);
+  }
+  getInfoFromDataBase() {
+    this.notify('species-select-new', 'all');
+  }
   getCustomAnimalsPage(pageN) {
     this.getSpeciesRendered();
     this.view.renderAnimalsList(this.model.getCustomData(pageN));
     this.view.renderNavBar(this.model.getNavArr(), this.model.getNavStat());
-    this.view.renderSortMenu();
+    this.view.renderDropDowns(
+      this.model.getSortType(),
+      this.model.getPageSize()
+    );
     this.view.scrollToYPosition(this.model.getScrollYPosition());
   }
   getNewSpeciesSelected(resultsArr) {
@@ -147,13 +157,36 @@ export class ControllerMainWindow {
     };
     const sortBtnHandler = {
       conditionCheck(event) {
-        return event.target.closest('.dropdown-item');
+        return event.target.closest('.sort-item');
       },
       action(savedThis, event) {
         savedThis.model.getAnimalsSorted(
-          event.target.closest('.dropdown-item').dataset.sortType
+          event.target.closest('.sort-item').dataset.sortType
         );
         savedThis.getCustomAnimalsPage();
+      }
+    };
+    const itemsPerPageHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.per-page-items');
+      },
+      action(savedThis, event) {
+        savedThis.model.setPageSize(
+          Number(event.target.closest('.per-page-items').dataset.itemsPerPage)
+        );
+        savedThis.getCustomAnimalsPage();
+      }
+    };
+    const goToPageBtnHandler = {
+      conditionCheck(event) {
+        return event.target.closest('.goto__btn');
+      },
+      action(savedThis) {
+        const pageN = savedThis.view.getGoToPageInput();
+        if (pageN.length > 0) {
+          savedThis.model.setCurrentPageNumber(Number(pageN));
+          savedThis.getCustomAnimalsPage();
+        }
       }
     };
 
@@ -163,7 +196,9 @@ export class ControllerMainWindow {
       speciesBtnHandler,
       arrowUpHandler,
       navBarHandler,
-      sortBtnHandler
+      sortBtnHandler,
+      itemsPerPageHandler,
+      goToPageBtnHandler
     ];
 
     handlersArr.some(handler => {

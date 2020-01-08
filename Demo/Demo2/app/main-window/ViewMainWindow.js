@@ -46,10 +46,12 @@ export class ViewMainWindow {
       }
     });
   }
-  renderSortMenu() {
+  renderDropDowns(sortType, pageN) {
     document.querySelector(
-      '.sort-drop-menu'
+      '.drop-menu-area'
     ).innerHTML = this.template.getSortMenuTemplate();
+    this.renderActiveSortType(sortType);
+    this.renderActiveItemsPerPage(pageN);
   }
   addMainWindowListener(func) {
     this.mainWindow.addEventListener('click', func);
@@ -83,5 +85,27 @@ export class ViewMainWindow {
   }
   renderRemoveFromCartBtn() {
     return this.template.getRemoveFromCartBtnTemplate();
+  }
+  renderActiveSortType(sortType) {
+    [...document.querySelectorAll('.sort-item')].forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.sortType === sortType) {
+        btn.classList.add('active');
+      }
+    });
+  }
+  renderActiveItemsPerPage(pageN) {
+    [...document.querySelectorAll('.per-page-items')].forEach(btn => {
+      btn.classList.remove('active');
+      if (Number(btn.dataset.itemsPerPage) === pageN) {
+        btn.classList.add('active');
+      }
+    });
+  }
+  getGoToPageInput() {
+    return document.querySelector('.goto__input').value;
+  }
+  resetGoToPageInput() {
+    document.querySelector('.goto__input').value = '';
   }
 }

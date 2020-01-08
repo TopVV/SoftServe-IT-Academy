@@ -2,22 +2,14 @@ import { ModelCart } from './ModelCart.js';
 import { ViewCart } from './ViewCart.js';
 
 export class ControllerCart {
-  constructor({ subscribe, unsubscribe, notify }) {
-    this.model = new ModelCart(subscribe, unsubscribe, notify);
+  constructor({ subscribe, notify }) {
+    this.model = new ModelCart(notify);
     this.view = new ViewCart();
     this.subscribe = subscribe;
     this.notify = notify;
-    this.getLocalStorageCart();
     this.getCartBtn();
     this.subscribe('add-to-cart', this.getNewCartInfo.bind(this));
     this.subscribe('remove-from-cart', this.deleteItemFromCart.bind(this));
-  }
-  getLocalStorageCart() {
-    if (localStorage.getItem('savedCart')) {
-      this.model.setAnimalsInCart(
-        JSON.parse(localStorage.getItem('savedCart'))
-      );
-    }
   }
   getCartBtn() {
     this.getCartBtnUpdated();
@@ -119,7 +111,10 @@ export class ControllerCart {
         );
         if (validationResponse === 'valid') {
           savedThis.view.renderOrderComplete();
-          savedThis.model.sendMessage(savedThis.model.getMessageForBot());
+          savedThis.model.sendMessage(
+            savedThis.model.getMessageForBot(),
+            savedThis.model.getGroupChatId()
+          );
           savedThis.clearAnimalsInCart();
         } else {
           savedThis.view.renderErrorInput(inputIdsArr, validationResponse);
@@ -150,7 +145,4 @@ export class ControllerCart {
       return false;
     });
   }
-  /*   checkIfInCart(id) {
-    return this.model.checkIfInCart(id);
-  } */
 }

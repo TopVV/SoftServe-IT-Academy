@@ -57,13 +57,13 @@ export class TemplateCart {
     </tr>`;
   }
   getEmptyCartTemplate() {
-    return `<tr><td class='text-capitalize font-weight-bold text-center py-3' colspan="6">No animals were added yet :( </td></tr>`;
+    return `<tr><td class='text-capitalize font-weight-bold font-italic text-center py-3' colspan="6"><h4>No animals were added yet :( </h4></td></tr>`;
   }
   getOrderTemplate() {
     return `<form class="order-form col-10 mx-auto cart-area rounded p-4">
     <div class="form-row">
       <div class="col">
-        <label for="firstName">First Name</label>
+        <label for="firstName">First Name*</label>
         <input
           type="text"
           class="form-control"
@@ -72,13 +72,13 @@ export class TemplateCart {
         />
       </div>
       <div class="col">
-        <label for="lastName">Last Name</label>
+        <label for="lastName">Last Name*</label>
         <input type="text" class="form-control" id="lastName" placeholder="Doe" />
       </div>
     </div>
     <div class="form-row">
       <div class="col">
-        <label for="phone">Phone Number</label>
+        <label for="phone">Phone Number*</label>
         <input
           type="text"
           class="form-control"
@@ -89,7 +89,7 @@ export class TemplateCart {
     </div>
     <div class="form-row">
       <div class="col">
-        <label for="address">Address</label>
+        <label for="address">Address*</label>
         <input
           type="text"
           class="form-control"
@@ -100,7 +100,7 @@ export class TemplateCart {
     </div>
     <div class="form-row">
       <div class="col">
-        <label for="email">Email</label>
+        <label for="email">Email*</label>
         <input
           type="email"
           class="form-control"

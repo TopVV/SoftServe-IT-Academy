@@ -61,7 +61,23 @@ export class TemplateMainWindow {
         <li class="page-item"><a href="#" class="page-link" data-page_n='1'><<</a></li>
         ${stringWithNumbers}
         <li class="page-item"><a href="#" class="page-link" data-page_n='-1'>>></a></li>
-        </ul>`;
+        </ul>
+        <ul class="pagination goto-nav align-items-center justify-content-around mx-auto">
+        <li class="page-item">
+          <span class="text-capitalize goto-nav__text">Page number: </span>
+        </li>
+        <li class="page-item">
+          <input class="goto__input" type="number" name="goto" />
+        </li>
+        <li class="page-item">
+          <button
+            type="button"
+            class="goto__btn btn btn-sm btn-outline-primary"
+          >
+            Go
+          </button>
+        </li>
+      </ul>`;
   }
   getQuickSpeciesTemplate() {
     return `<button
@@ -109,52 +125,72 @@ export class TemplateMainWindow {
     <div class="arrow-up__text text-center">To the top</div>`;
   }
   getSortMenuTemplate() {
-    return `<button
-    type="button"
-    class="btn btn-info dropdown-toggle"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
-    Sort by:
-  </button>
-  <div class="dropdown-menu sort-menu">
+    return `<div class="btn-group dropright sort-drop-menu">
     <button
-      class="dropdown-item d-flex flex-row align-self-center"
       type="button"
-      data-sort-type="none"
+      class="btn btn-info dropdown-toggle"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
     >
-      None
+      Sort by:
     </button>
+    <div class="dropdown-menu sort-menu">
+      <button
+        class="dropdown-item d-flex flex-row align-self-center sort-item"
+        type="button"
+        data-sort-type="none"
+      >
+        None
+      </button>
+      <button
+        class="dropdown-item d-flex flex-row align-self-center sort-item"
+        type="button"
+        data-sort-type="priceDown"
+      >
+        <span>Price</span><i class="fas fa-sort-down ml-1"></i>
+      </button>
+      <button
+        class="dropdown-item d-flex flex-row align-self-center sort-item"
+        type="button"
+        data-sort-type="priceUp"
+      >
+        <span>Price</span>
+        <i class="fas fa-sort-up ml-1"></i>
+      </button>
+      <button
+        class="dropdown-item d-flex flex-row align-self-center sort-item"
+        type="button"
+        data-sort-type="ageDown"
+      >
+        <span>Age</span> <i class="fas fa-sort-down ml-1"></i>
+      </button>
+      <button
+        class="dropdown-item d-flex flex-row align-self-center sort-item"
+        type="button"
+        data-sort-type="ageUp"
+      >
+        <span>Age</span> <i class="fas fa-sort-up ml-1"></i>
+      </button>
+    </div>
+  </div>
+  <div class="btn-group dropleft items-per-page-menu">
     <button
-      class="dropdown-item d-flex flex-row align-self-center"
       type="button"
-      data-sort-type="price-down"
+      class="btn btn-secondary dropdown-toggle text-capitalize btn-info"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
     >
-      <span>Price</span><i class="fas fa-sort-down ml-1"></i>
+      Animals per page
     </button>
-    <button
-      class="dropdown-item d-flex flex-row align-self-center"
-      type="button"
-      data-sort-type="price-up"
-    >
-      <span>Price</span>
-      <i class="fas fa-sort-up ml-1"></i>
-    </button>
-    <button
-      class="dropdown-item d-flex flex-row align-self-center"
-      type="button"
-      data-sort-type="age-down"
-    >
-      <span>Age</span> <i class="fas fa-sort-down ml-1"></i>
-    </button>
-    <button
-      class="dropdown-item d-flex flex-row align-self-center"
-      type="button"
-      data-sort-type="age-up"
-    >
-      <span>Age</span> <i class="fas fa-sort-up ml-1"></i>
-    </button>
+    <div class="dropdown-menu">
+      <button class="dropdown-item per-page-items" type="button" data-items-per-page="20">20</button>
+      <button class="dropdown-item per-page-items" type="button" data-items-per-page="40">40</button>
+      <button class="dropdown-item per-page-items" type="button" data-items-per-page="60">60</button>
+      <button class="dropdown-item per-page-items" type="button" data-items-per-page="80">80</button>
+      <button class="dropdown-item per-page-items" type="button" data-items-per-page="100">100</button>
+    </div>
   </div>`;
   }
   getNoResultsTemplate() {
@@ -163,12 +199,3 @@ export class TemplateMainWindow {
   </div>`;
   }
 }
-
-/* getAddToCartBtnTemplate(){
-    return `<button type="button" class="add-to-cart-btn btn btn-success btn__border_round btn-sm">Add to cart <i
-    class="fas fa-cart-plus"></i></button>`
-}
-getRemoveFromCartBtn(){
-    return `<button type="button" class="remove-from-cart-btn btn btn-warning btn__border_round btn-sm">Remove from cart <i
-    class="fas fa-minus-circle"></i></button>`
-} */

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Courier+Prime|Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Courier+Prime:400,700|Playfair+Display:400,700&display=swap');
+@import url('./animations.css');
+@import url('./media-queries.css');
 
 textarea,
 select,
@@ -7,27 +9,39 @@ button,
 button:focus {
   outline: none;
 }
-
+.details-window,
+.cart-window,
+.animal-in-cart__text,
+.sort-buttons,
+.cart-area,
+.cart-list,
+.goto-nav {
+  font-family: 'Courier Prime', monospace;
+}
+.animals-window .card,
+.arrow-up__text,
+.card {
+  font-family: 'Playfair Display', serif;
+}
+.page-item.active .page-link,
+.drop-menu-area .active {
+  pointer-events: none;
+}
 body {
   background: #f3e0be;
 }
 .main-window {
   position: relative;
-  position: relative;
 }
-
 .border_round {
   border-radius: 5%;
 }
-
 .btn__border_round {
   border-radius: 40px;
 }
-
 .animated {
   animation-fill-mode: initial;
 }
-
 .details-window,
 .cart-window {
   background: rgba(0, 0, 0, 0.9);
@@ -38,9 +52,7 @@ body {
   width: 100%;
   overflow: scroll;
   padding-top: 3%;
-  font-family: 'Courier Prime', monospace;
 }
-
 .hidden {
   display: none;
 }
@@ -75,20 +87,21 @@ body {
   background-image: url('./../img/backup.jpg');
   background-position: center center;
 }
-
 /* --- pag-menu --- */
-
 .pag__menu {
   justify-content: center;
 }
-
-.page-item.active .page-link {
-  pointer-events: none;
+.goto-nav {
+  width: 250px;
+  height: 50px;
+  background-color: #fff;
 }
-
+.goto__input {
+  width: 40px;
+  height: 40px;
+}
 /* --- animals-card --- */
 .animals-window .card {
-  font-family: 'Playfair Display', serif;
   background: #ece9e6;
   background: -webkit-linear-gradient(to bottom, #ffffff, #ece9e6);
   background: linear-gradient(to bottom, #ffffff, #ece9e6);
@@ -97,9 +110,6 @@ body {
   min-width: 250px;
   overflow: hidden;
   transition: 500ms;
-}
-.cart-list {
-  font-family: 'Playfair Display', serif;
 }
 .card-img-top,
 .card-img-top:before {
@@ -117,26 +127,21 @@ body {
 .card h4 {
   margin: 0;
 }
-
 .species__icon,
 .gender__icon {
   font-size: 30px;
 }
-
 .card__text {
   font-size: 18px;
 }
-
 .animals-window .card:hover {
   transform: scale(1.1);
   cursor: pointer;
   box-shadow: 0 20px 50px #ffffe0;
 }
-
 .cart-table {
   background-color: #fff;
 }
-
 .top-section {
   background-image: url('./../img/pet-shop1.png');
   background-size: contain;
@@ -146,12 +151,10 @@ body {
   height: 70vh;
 }
 /*  --- cart-window --- */
-
 .cart-area {
   width: 80%;
   max-height: 90vh;
   margin: 0 auto;
-  font-family: 'Courier Prime', monospace;
 }
 .cart-table {
   overflow-y: auto;
@@ -162,15 +165,12 @@ body {
   top: 0;
   background-color: #fff;
 }
-
 .cart-table__header th {
   z-index: 3;
 }
-
 .remove-from-cart {
   cursor: pointer;
 }
-
 .cart-button {
   position: relative;
   width: 47px;
@@ -188,7 +188,6 @@ body {
   -webkit-animation: pulseCircle 800ms ease-in-out infinite;
   animation: pulseCircle 800ms ease-in-out infinite;
 }
-
 .cart-button i {
   position: absolute;
   top: 10px;
@@ -210,7 +209,6 @@ body {
   right: -10px;
   top: -10px;
 }
-
 .animal-in-cart-img {
   width: 50px;
   height: 50px;
@@ -219,14 +217,11 @@ body {
 }
 .animal-in-cart-img::after {
   content: '\f1c5'' ' attr(alt);
-
   font-size: 16px;
   font-family: FontAwesome;
   color: rgb(100, 100, 100);
-
   display: block;
   position: absolute;
-  /* z-index: 2; */
   top: 0;
   left: 0;
   width: 100%;
@@ -235,7 +230,6 @@ body {
 }
 .animal-in-cart__text {
   font-size: 20px;
-  font-family: 'Courier Prime', monospace;
 }
 .order-form {
   background-color: #ffffe0;
@@ -260,14 +254,11 @@ body {
   font-size: 30px;
 }
 /* --- quick-species --- */
-/* .quick-species {
-} */
 .species-btn {
   width: 182px;
   height: 145px;
   background: none;
   border: 2px outset rgb(255, 199, 56);
-  /* background-color: rgb(255, 199, 56, 0.5); */
   border-radius: 25%;
   transition: all 400ms ease-in-out;
 }
@@ -275,12 +266,10 @@ body {
   animation: drawBorder 400ms forwards;
   transform: scale(1.1);
 }
-
 .active-species {
   background-color: rgba(255, 255, 255, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.5);
 }
-
 /* drop-down menu */
 .sort-menu {
   position: relative;
@@ -303,9 +292,6 @@ body {
   transition: width 500ms ease-in-out;
 }
 /* --- sort --- */
-.sort-buttons {
-  font-family: 'Courier Prime', monospace;
-}
 /* arrow-up */
 .arrow-up {
   position: fixed;
@@ -320,7 +306,6 @@ body {
   border: none;
 }
 .arrow-up__text {
-  font-family: 'Playfair Display', serif;
   font-size: 20px;
   cursor: pointer;
 }
@@ -328,129 +313,15 @@ body {
   display: none;
   z-index: -3;
 }
-/* .search-input::placeholder {
-} */
 .search-input-icon:hover + .search-input,
 .search-input:hover,
 .search-input:focus {
   width: 300px;
   -webkit-animation: pulseChanged 1.5s ease-in-out infinite;
   animation: pulseChanged 1.5s ease-in-out infinite;
-  /*     transition: all 0.2s ease-in-out;
-  animation: glow 800ms ease-out infinite alternate; */
 }
 .search-input-icon {
   position: absolute;
   top: 9px;
   left: 8px;
-}
-
-/* @keyframes glow {
-  0% {
-    border-color: #393;
-    box-shadow: 0 0 5px rgba(0, 255, 0, 0.2), inset 0 0 5px rgba(0, 255, 0, 0.1),
-      0 2px 0 #000;
-  }
-  100% {
-    border-color: #6f6;
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.6),
-      inset 0 0 10px rgba(0, 255, 0, 0.4), 0 2px 0 #000;
-  }
-} */
-@keyframes drawBorder {
-  0% {
-    background-color: rgb(255, 255, 255, 0.1);
-  }
-  25% {
-    border-left: 2px solid #fff;
-    background-color: rgb(255, 255, 255, 0.3);
-  }
-  50% {
-    border-top: 2px solid #fff;
-    background-color: rgb(255, 255, 255, 0.6);
-  }
-  75% {
-    border-right: 2px solid #fff;
-    background-color: rgb(255, 255, 255, 0.7);
-  }
-  100% {
-    border: 2px solid #fff;
-    background-color: rgb(255, 255, 255, 0.8);
-  }
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes pulseChanged {
-  0% {
-    box-shadow: 0 0 8px rgb(255, 154, 24, 0.25),
-      inset 0 0 8px rgb(255, 154, 24, 0.25);
-  }
-  25% {
-    box-shadow: 0 0 8px rgb(255, 154, 24, 0.5),
-      inset 0 0 8px rgb(255, 154, 24, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 16px rgb(255, 154, 24, 0.75),
-      inset 0 0 14px rgb(255, 154, 24, 0.75);
-  }
-  75% {
-    box-shadow: 0 0 8px rgb(255, 154, 24, 0.5),
-      inset 0 0 8px rgb(255, 154, 24, 0.5);
-  }
-  100% {
-    box-shadow: 0 0 8px rgb(255, 154, 24, 0.25),
-      inset 0 0 8px rgb(255, 154, 24, 0.25);
-  }
-}
-
-@keyframes pulseCircle {
-  0% {
-    box-shadow: inset 0px 1px 1px 0px rgba(255, 92, 0, 1);
-  }
-  12% {
-    box-shadow: inset -1px 1px 1px 0px rgba(255, 92, 0, 1);
-  }
-  25% {
-    box-shadow: inset -1px 0px 1px 0px rgba(255, 92, 0, 1);
-  }
-  37% {
-    box-shadow: inset -1px -1px 1px 0px rgba(255, 92, 0, 1);
-  }
-  50% {
-    box-shadow: inset 0px -1px 1px 0px rgba(255, 92, 0, 1);
-  }
-  63% {
-    box-shadow: inset 1px -1px 1px 0px rgba(255, 92, 0, 1);
-  }
-  75% {
-    box-shadow: inset 1px 0px 1px 0px rgba(255, 92, 0, 1);
-  }
-  87% {
-    box-shadow: inset 1px 1px 1px 0px rgba(255, 92, 0, 1);
-  }
-  100% {
-    box-shadow: inset 0px 1px 1px 0px rgba(255, 92, 0, 1);
-  }
-}
-@media screen and (min-width: 1121px) and (max-width: 1400px) {
-  .top-section {
-    height: 60vh;
-  }
-}
-@media screen and (min-width: 601px) and (max-width: 1120px) {
-  .top-section {
-    height: 40vh;
-  }
-}
-@media (max-width: 600px) {
-  .top-section {
-    background-size: cover;
-    height: 25vh;
-  }
 }
