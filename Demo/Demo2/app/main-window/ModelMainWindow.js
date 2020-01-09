@@ -29,7 +29,7 @@ export class ModelMainWindow {
       }
     };
     this.sortFilter = {
-      enabled: false,
+      enabled: true,
       name: 'sort',
       requestedValue: 'none',
       sortFuncObj: {
@@ -73,7 +73,7 @@ export class ModelMainWindow {
     return this.currentPageData.map(obj => this.prepareObjForTemplate(obj));
   }
   getCurrentAnimalsData() {
-    let currentData = this.allAnimalsBase;
+    let currentData = [...this.allAnimalsBase];
     this.filtersArr.forEach(filter => {
       if (filter.enabled) {
         currentData = filter.filterDataArr(currentData);
@@ -133,12 +133,7 @@ export class ModelMainWindow {
     }
   }
   setSortType(sortName) {
-    if (sortName === 'none') {
-      this.sortFilter.enabled = false;
-    } else {
-      this.sortFilter.enabled = true;
-      this.sortFilter.requestedValue = sortName;
-    }
+    this.sortFilter.requestedValue = sortName;
   }
   setTotalPageN(dataArr = this.allAnimalsBase) {
     this.totalPagesNumber = Math.ceil(dataArr.length / this.pageSize);
@@ -146,7 +141,6 @@ export class ModelMainWindow {
   setAnimalsInCart(animalsArr) {
     this.animalsInCart = [...animalsArr];
   }
-
   prepareObjForTemplate(obj) {
     const objClone = { ...obj };
     objClone.species = this.defineSpeciesIcon(obj.species);

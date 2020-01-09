@@ -10,10 +10,6 @@ export class ControllerMainWindow {
     this.subscribe('first-page-data', this.getFirstAnimalsPage.bind(this));
     this.subscribe('animals-data-updated', this.setNewAnimalBase.bind(this));
     this.subscribe('new-search-request', this.getSearchedPage.bind(this));
-    /*     this.subscribe(
-      'species-select-result',
-      this.getNewSpeciesSelected.bind(this)
-    ); */
     this.subscribe(
       'animals-in-cart-update',
       this.updateAnimalsInCart.bind(this)
@@ -43,11 +39,6 @@ export class ControllerMainWindow {
     );
     this.view.scrollToYPosition(this.model.getScrollYPosition());
   }
-  /*  getNewSpeciesSelected(resultsArr) {
-    this.model.setNewAnimalBase(resultsArr);
-    this.setSearchedDataBase();
-    this.getCustomAnimalsPage();
-  } */
   getSearchedPage(searchRequest) {
     this.model.setSearchInputValue(searchRequest);
     this.getCustomAnimalsPage();
@@ -128,10 +119,6 @@ export class ControllerMainWindow {
           e.target.closest('.species-btn').dataset.quick_species
         );
         savedThis.getCustomAnimalsPage();
-        /* savedThis.notify(
-          'species-select-new',
-          e.target.closest('.species-btn').dataset.quick_species
-        ); */
       }
     };
     const arrowUpHandler = {
