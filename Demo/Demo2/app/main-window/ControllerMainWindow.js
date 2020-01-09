@@ -10,10 +10,10 @@ export class ControllerMainWindow {
     this.subscribe('first-page-data', this.getFirstAnimalsPage.bind(this));
     this.subscribe('animals-data-updated', this.setNewAnimalBase.bind(this));
     this.subscribe('new-search-request', this.getSearchedPage.bind(this));
-    this.subscribe(
+    /*     this.subscribe(
       'species-select-result',
       this.getNewSpeciesSelected.bind(this)
-    );
+    ); */
     this.subscribe(
       'animals-in-cart-update',
       this.updateAnimalsInCart.bind(this)
@@ -43,17 +43,14 @@ export class ControllerMainWindow {
     );
     this.view.scrollToYPosition(this.model.getScrollYPosition());
   }
-  getNewSpeciesSelected(resultsArr) {
+  /*  getNewSpeciesSelected(resultsArr) {
     this.model.setNewAnimalBase(resultsArr);
     this.setSearchedDataBase();
     this.getCustomAnimalsPage();
-  }
+  } */
   getSearchedPage(searchRequest) {
-    this.setSearchedDataBase(searchRequest);
+    this.model.setSearchInputValue(searchRequest);
     this.getCustomAnimalsPage();
-  }
-  setSearchedDataBase(searchRequest) {
-    this.model.setSearchedData(searchRequest);
   }
   getSpeciesRendered() {
     this.view.renderQuickSpecies();
@@ -130,10 +127,11 @@ export class ControllerMainWindow {
         savedThis.model.setActiveSpecies(
           e.target.closest('.species-btn').dataset.quick_species
         );
-        savedThis.notify(
+        savedThis.getCustomAnimalsPage();
+        /* savedThis.notify(
           'species-select-new',
           e.target.closest('.species-btn').dataset.quick_species
-        );
+        ); */
       }
     };
     const arrowUpHandler = {
@@ -160,7 +158,7 @@ export class ControllerMainWindow {
         return event.target.closest('.sort-item');
       },
       action(savedThis, event) {
-        savedThis.model.getAnimalsSorted(
+        savedThis.model.setSortType(
           event.target.closest('.sort-item').dataset.sortType
         );
         savedThis.getCustomAnimalsPage();

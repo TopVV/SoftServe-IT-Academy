@@ -50,7 +50,7 @@ body {
   top: 0;
   bottom: 0;
   width: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
   padding-top: 3%;
 }
 .hidden {

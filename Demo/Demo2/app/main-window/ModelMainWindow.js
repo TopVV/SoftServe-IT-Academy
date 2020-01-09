@@ -1,39 +1,85 @@
 export class ModelMainWindow {
   constructor() {
-    this.speciesSelectedData = [];
-    this.searchResultsData = null;
-    this.currentData = [];
+    this.allAnimalsBase = [];
     this.pageSize = 20;
     this.currentPageData = [];
     this.currentPageNumber = 1;
     this.totalPagesNumber;
     this.scrollYPosition = 0;
-    this.activeSpecies = 'all';
-    this.inputData = '';
     this.animalsInCart = [];
-    this.sortBy = 'none';
+    this.speciesFilter = {
+      enabled: false,
+      name: 'species',
+      requestedValue: '',
+      filterDataArr(arr) {
+        return arr.filter(obj => obj.species === this.requestedValue);
+      }
+    };
+    this.searchFilter = {
+      enabled: false,
+      name: 'search',
+      requestedValue: '',
+      /* getSearchFilterFunc(obj) {
+        return obj.breed.toLowerCase().indexOf(inputData) > -1;
+      }, */
+      filterDataArr(arr) {
+        return arr.filter(
+          obj => obj.breed.toLowerCase().indexOf(this.requestedValue) > -1
+        );
+      }
+    };
+    this.sortFilter = {
+      enabled: false,
+      name: 'sort',
+      requestedValue: 'none',
+      sortFuncObj: {
+        priceDown(a, b) {
+          return b.price - a.price;
+        },
+        priceUp(a, b) {
+          return a.price - b.price;
+        },
+        ageDown(a, b) {
+          return a.birth_date - b.birth_date;
+        },
+        ageUp(a, b) {
+          return b.birth_date - a.birth_date;
+        },
+        none(a, b) {
+          return Math.random() - 0.5;
+        }
+      },
+      filterDataArr(arr) {
+        return arr.sort(this.sortFuncObj[this.requestedValue]);
+      }
+    };
+    this.filtersArr = [this.speciesFilter, this.searchFilter, this.sortFilter];
   }
   setNewAnimalBase(newBaseArr) {
-    this.speciesSelectedData = [...newBaseArr];
-    this.setTotalPageN(this.speciesSelectedData);
-    this.currentPageNumber = 1;
-    this.sortBy = 'none';
+    this.allAnimalsBase = [...newBaseArr];
+    this.setTotalPageN(this.allAnimalsBase);
   }
   getCustomData(pageNumber = this.currentPageNumber) {
-    this.currentData =
-      this.searchResultsData !== null
-        ? this.searchResultsData
-        : this.speciesSelectedData;
-    this.setTotalPageN(this.currentData);
+    const currentData = this.getCurrentAnimalsData();
+    this.setTotalPageN(currentData);
     if (pageNumber === -1) {
       pageNumber = this.totalPagesNumber;
     }
-    this.currentPageData = this.currentData.slice(
+    this.currentPageData = currentData.slice(
       (pageNumber - 1) * this.pageSize,
       pageNumber * this.pageSize
     );
     this.currentPageNumber = pageNumber;
     return this.currentPageData.map(obj => this.prepareObjForTemplate(obj));
+  }
+  getCurrentAnimalsData() {
+    let currentData = this.allAnimalsBase;
+    this.filtersArr.forEach(filter => {
+      if (filter.enabled) {
+        currentData = filter.filterDataArr(currentData);
+      }
+    });
+    return currentData;
   }
   getNavArr() {
     const navArr = [];
@@ -55,9 +101,9 @@ export class ModelMainWindow {
     };
   }
   getAnimalById(id) {
-    for (let i = 0; i < this.speciesSelectedData.length; i++) {
-      if (this.speciesSelectedData[i].id === id) {
-        return this.speciesSelectedData[i];
+    for (let i = 0; i < this.allAnimalsBase.length; i++) {
+      if (this.allAnimalsBase[i].id === id) {
+        return this.allAnimalsBase[i];
       }
     }
   }
@@ -68,53 +114,39 @@ export class ModelMainWindow {
     return this.scrollYPosition;
   }
   setActiveSpecies(species) {
-    this.activeSpecies = species;
+    if (species === 'all') {
+      this.speciesFilter.enabled = false;
+    } else {
+      this.speciesFilter.enabled = true;
+    }
+    this.speciesFilter.requestedValue = species;
   }
   getActiveSpecies() {
-    return this.activeSpecies;
+    return this.speciesFilter.requestedValue;
   }
-  setSearchedData(inputData = this.inputData) {
-    if (this.inputData !== inputData) {
-      this.inputData = inputData;
-    }
-    if (this.inputData.length <= 0) {
-      this.searchResultsData = null;
+  setSearchInputValue(input) {
+    if (input.length > 0) {
+      this.searchFilter.enabled = true;
+      this.searchFilter.requestedValue = input;
     } else {
-      this.searchResultsData = this.speciesSelectedData.filter(
-        obj => obj.breed.toLowerCase().indexOf(inputData) > -1
-      );
+      this.searchFilter.enabled = false;
     }
-    this.setTotalPageN();
   }
-  setTotalPageN(dataArr = this.currentData) {
+  setSortType(sortName) {
+    if (sortName === 'none') {
+      this.sortFilter.enabled = false;
+    } else {
+      this.sortFilter.enabled = true;
+      this.sortFilter.requestedValue = sortName;
+    }
+  }
+  setTotalPageN(dataArr = this.allAnimalsBase) {
     this.totalPagesNumber = Math.ceil(dataArr.length / this.pageSize);
   }
   setAnimalsInCart(animalsArr) {
     this.animalsInCart = [...animalsArr];
   }
-  getAnimalsSorted(sortType) {
-    this.sortBy = sortType;
-    const sortFuncObject = {
-      priceDown(a, b) {
-        return b.price - a.price;
-      },
-      priceUp(a, b) {
-        return a.price - b.price;
-      },
-      ageDown(a, b) {
-        return a.birth_date - b.birth_date;
-      },
-      ageUp(a, b) {
-        return b.birth_date - a.birth_date;
-      },
-      none(a, b) {
-        return Math.random() - 0.5;
-      }
-    };
-    let sortFunction = sortFuncObject[sortType];
-    this.speciesSelectedData.sort(sortFunction);
-    this.currentPageNumber = 1;
-  }
+
   prepareObjForTemplate(obj) {
     const objClone = { ...obj };
     objClone.species = this.defineSpeciesIcon(obj.species);
@@ -168,19 +200,20 @@ export class ModelMainWindow {
     return speciesIcons[species];
   }
   setPageSize(n) {
-    if (n > this.currentData.length) {
-      this.pageSize = this.currentData.length;
+    const currentData = this.getCurrentAnimalsData();
+    if (n > currentData.length) {
+      this.pageSize = currentData.length;
     } else {
       this.pageSize = n;
     }
-    this.setTotalPageN(this.currentData);
+    this.setTotalPageN(currentData);
     this.currentPageNumber = 1;
   }
   getPageSize() {
     return Math.round(this.pageSize / 20) * 20;
   }
   getSortType() {
-    return this.sortBy;
+    return this.sortFilter.requestedValue;
   }
   setCurrentPageNumber(n) {
     if (n < 0) {
@@ -192,3 +225,49 @@ export class ModelMainWindow {
     }
   }
 }
+
+/* setSearchedData(inputData = this.inputData) {
+    if (this.inputData !== inputData) {
+      this.inputData = inputData;
+    }
+    if (this.inputData.length <= 0) {
+      this.searchResultsData = null;
+    } else {
+      this.searchResultsData = this.speciesSelectedData.filter(
+        obj => obj.breed.toLowerCase().indexOf(inputData) > -1
+      );
+    }
+    this.setTotalPageN();
+  } 
+  getAnimalsSorted(sortType) {
+    this.sortBy = sortType;
+    const sortFuncObject = {
+      priceDown(a, b) {
+        return b.price - a.price;
+      },
+      priceUp(a, b) {
+        return a.price - b.price;
+      },
+      ageDown(a, b) {
+        return a.birth_date - b.birth_date;
+      },
+      ageUp(a, b) {
+        return b.birth_date - a.birth_date;
+      },
+      none(a, b) {
+        return Math.random() - 0.5;
+      }
+    };
+    let sortFunction = sortFuncObject[sortType];
+    this.speciesSelectedData.sort(sortFunction);
+    this.currentPageNumber = 1;
+  }
+  getAnimalsSpecies(species) {}
+  currentFilters = [speciesFilter, searchFilter, sortFilter];
+  speciesFilter = {
+    name: 'species',
+    requestedValue: 'all',
+    filterFunc(obj) {
+      return obj.species === requestedValue;
+    }
+  }; */
