@@ -10,7 +10,7 @@ export class ModelMainWindow {
     this.speciesFilter = {
       enabled: false,
       name: 'species',
-      requestedValue: '',
+      requestedValue: 'none',
       filterDataArr(arr) {
         return arr.filter(obj => obj.species === this.requestedValue);
       }
@@ -19,9 +19,6 @@ export class ModelMainWindow {
       enabled: false,
       name: 'search',
       requestedValue: '',
-      /* getSearchFilterFunc(obj) {
-        return obj.breed.toLowerCase().indexOf(inputData) > -1;
-      }, */
       filterDataArr(arr) {
         return arr.filter(
           obj => obj.breed.toLowerCase().indexOf(this.requestedValue) > -1
@@ -219,49 +216,3 @@ export class ModelMainWindow {
     }
   }
 }
-
-/* setSearchedData(inputData = this.inputData) {
-    if (this.inputData !== inputData) {
-      this.inputData = inputData;
-    }
-    if (this.inputData.length <= 0) {
-      this.searchResultsData = null;
-    } else {
-      this.searchResultsData = this.speciesSelectedData.filter(
-        obj => obj.breed.toLowerCase().indexOf(inputData) > -1
-      );
-    }
-    this.setTotalPageN();
-  } 
-  getAnimalsSorted(sortType) {
-    this.sortBy = sortType;
-    const sortFuncObject = {
-      priceDown(a, b) {
-        return b.price - a.price;
-      },
-      priceUp(a, b) {
-        return a.price - b.price;
-      },
-      ageDown(a, b) {
-        return a.birth_date - b.birth_date;
-      },
-      ageUp(a, b) {
-        return b.birth_date - a.birth_date;
-      },
-      none(a, b) {
-        return Math.random() - 0.5;
-      }
-    };
-    let sortFunction = sortFuncObject[sortType];
-    this.speciesSelectedData.sort(sortFunction);
-    this.currentPageNumber = 1;
-  }
-  getAnimalsSpecies(species) {}
-  currentFilters = [speciesFilter, searchFilter, sortFilter];
-  speciesFilter = {
-    name: 'species',
-    requestedValue: 'all',
-    filterFunc(obj) {
-      return obj.species === requestedValue;
-    }
-  }; */
