@@ -1,5 +1,6 @@
 export class Supply {
-  constructor(supplyName, supplyType='Общий' ,supplyInfo = '-', supplyAmount = '') {
+  constructor(supplyID, supplyName, supplyType='Общий' ,supplyInfo = '-', supplyAmount = '') {
+    this.id = supplyID;
     this.name = supplyName;
     this.type = supplyType;
     this.info = supplyInfo;
