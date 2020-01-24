@@ -113,9 +113,8 @@ const supplies = [
 ];
 
 console.log(JSON.stringify(supplies));
-
-// const MyList = ReactDOM.crea
-const MyList = React.createElement(
+console.log(supplies)
+/* const MyList = React.createElement(
   'ol',
   null,
   supplies.map((liElem, i) =>
@@ -131,7 +130,13 @@ const MyList = React.createElement(
       )
     )
   )
-);
-// React.createElement('h1', null, 'Baked Salmon');
+); */
 
-ReactDOM.render(MyList, document.querySelector('.react-root'));
+function MyList(){
+  return (
+    <h1>Test Message</h1>
+  )
+}
+
+
+ReactDOM.render(<MyList />, document.querySelector('.react-root'));
